@@ -12,3 +12,5 @@
 유영재 | 게시판
 류승현 | 마이페이지
 주지영 | 메인페이지
+
+![WireFrame](https://xd.adobe.com/view/2b96bd39-b26e-4373-b3b7-85062dd64fbd-7ec5/)
