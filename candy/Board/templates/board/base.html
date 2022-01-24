@@ -22,14 +22,9 @@
           color: black;
         }
       </style>
-  </head>
+</head>
   
-  <body>
-  
-    <div style="text-align: center; color: black" class="container">
-      <a style="color: black; font-size: 5rem;" href="{% url 'start' %}">Candy</a>
-      {% block content %}
-      {% endblock %}
-    </div>
-  
-  </body>
+<body>
+  {% block content %}
+  {% endblock %}  
+</body>

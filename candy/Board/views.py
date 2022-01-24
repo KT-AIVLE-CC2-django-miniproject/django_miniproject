@@ -10,7 +10,7 @@ from User.models import User
 def home(request):
     all_boards = Board.objects.all().order_by("-pub_date")
     paginator = Paginator(all_boards, 10)
-    page = int(request.Get.get('page',1))
+    page = int(request.GET.get('page',1))
     board_list = paginator.get_page(page)
     return render(request, 'board/home.html', {'title': 'Board List',
     'board_list' : board_list})
