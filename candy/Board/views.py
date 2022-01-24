@@ -1,3 +1,27 @@
+from audioop import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.core.paginator import Paginator
+from django.utils import timezone
+from .models import Board
+from User.models import User
 
 # Create your views here.
+def home(request):
+    all_boards = Board.objects.all().order_by("-pub_date")
+    paginator = Paginator(all_boards, 10)
+    page = int(request.Get.get('page',1))
+    board_list = paginator.get_page(page)
+    return render(request, 'board/home.html', {'title': 'Board List',
+    'board_list' : board_list})
+def detail(request, postNum):
+    board = Board.objects.get(id=postNum)
+    return render(request, 'board/detail.html', {'board':board})
+
+def write(request):
+    return render(request, 'board/create.html')
+def write_board(request, postNum):
+    wboard = Board(title=request.POST['title'], 
+    content = request.POST['detail'], id = User.id, pub_date=timezone.now())
+    wboard.save()
+    return HttpResponseRedirect(reverse('board.detail', args=(postNum,)))
