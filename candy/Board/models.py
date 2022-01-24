@@ -1,6 +1,6 @@
 from django.db import models
 from sqlalchemy import ForeignKey
-from User import User
+from User.models import User
 # Create your models here.
 class Board(models.Model):
     '''
