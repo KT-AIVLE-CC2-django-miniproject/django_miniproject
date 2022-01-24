@@ -14,14 +14,16 @@ def home(request):
     board_list = paginator.get_page(page)
     return render(request, 'board/home.html', {'title': 'Board List',
     'board_list' : board_list})
+
 def detail(request, postNum):
     board = Board.objects.get(id=postNum)
     return render(request, 'board/detail.html', {'board':board})
 
-def write(request):
+def create(request):
     return render(request, 'board/create.html')
+
 def write_board(request, postNum):
     wboard = Board(title=request.POST['title'], 
-    content = request.POST['detail'], id = User.id, pub_date=timezone.now())
+    content = request.POST['detail'], id = 'kim', pub_date=timezone.now())
     wboard.save()
-    return HttpResponseRedirect(reverse('board.detail', args=(postNum,)))
+    return HttpResponseRedirect(reverse('board:detail'))
