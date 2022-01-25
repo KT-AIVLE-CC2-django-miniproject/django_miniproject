@@ -22,3 +22,11 @@ def signup(request):
 def profile(request):
     profile = User.objects.get(id = 'abc')
     return render(request, 'userapp/profile.html',{'profile':profile})
+
+
+
+
+
+
+
+  
