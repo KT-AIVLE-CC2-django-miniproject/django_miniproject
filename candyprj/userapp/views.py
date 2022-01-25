@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.shortcuts import render, redirect
+from django.shortcuts import render,redirect
 from .models import User
 from django.http import HttpResponse
 def signup(request):
@@ -19,30 +19,28 @@ def signup(request):
     else:
         return render(request, 'userapp/signup.html')
 
+
 def profile(request):
     profile = User.objects.get(id = 'abc')
     return render(request, 'userapp/profile.html',{'profile':profile})
 
-# from django.shortcuts import redirect
-# from .forms import ProfileForm
+# from .forms import UserUpdateForm
 # def update(request):
 #     if request.method == "POST":
-#         form = ProfileForm(request.POST)
+#         form = UserUpdateForm(request.POST, instance=request.user)  # 이게 없으면 수정할 때마다 새로운 계정을 만든다.
 #         if form.is_valid():
-#             """
-#             현재 유저의 프로필을 가져오고
-#             받은 값으로 프로필을 갱신한다.
-#             """
-#             old_profile = request.user.profile
-#             old_profile.pw = form.cleaned_data['pw']
-#             old_profile.name = form.cleaned_data['name']
-#             old_profile.save()
-#             return redirect('profile')
-#     elif request.method == "GET":
-#         form = ProfileForm(instance=request.user.profile)
-#         return render(request, 'user/profile_form.html', {
-#             'form': form,
-#         })
+#             form.save()  # 폼값을 불러오고 저장
+#             return redirect('user/profile/')
+#     else:
+#         form = UserUpdateForm(instance=request.user)
+#     return render(request, 'userapp/update.html', {'form': form})
+
+
+def update_profile(request, id):
+    user = User.objects.get(pk=id)
+    
+    user.profile.bio = 'Hello i am jihun ...'
+    user.save()
 
 
 
