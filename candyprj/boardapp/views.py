@@ -12,7 +12,7 @@ def home(request):
     paginator = Paginator(all_boards, 10)
     page = int(request.GET.get('page',1))
     board_list = paginator.get_page(page)
-    return render(request, 'board/home.html', {'title': 'board List',
+    return render(request, 'board/home.html', {'title': 'Board List',
     'board_list' : board_list})
 
 def detail(request, postNum):
