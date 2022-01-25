@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.db import models
 from sqlalchemy import ForeignKey
 from userapp.models import User
@@ -15,11 +16,16 @@ class Board(models.Model):
     id = models.ForeignKey("userapp.User", on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.CharField(max_length= 1000)
-    pub_date = models.DateTimeField()
-    # recuritment = models.BooleanField()
+    pub_date = models.DateTimeField(auto_now=True)
+    recuritment = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
+    
+    # class Meta:
+    #     db_table = 'boards'
+    #     verbose_name ='게시판'
+    #     verbose_name_plural = '게시판'
 class Reply(models.Model):
     '''
     repNum : 댓글번호(PK)

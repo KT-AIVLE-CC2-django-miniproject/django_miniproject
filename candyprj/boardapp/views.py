@@ -21,17 +21,19 @@ def post(request):
     if request.method =="POST":
         title = request.POST['title']
         content = request.POST['content']
-        # id = request.POST['id']
-        board = Board(title = title, content = content)
+        id = request.POST['id']  # 로그인 후에 세션에 저장된 값으로 id 알아내기 
+
+        board = Board(title = title, content = content, id = id, recuritment = True)
+
         board.save()
-        # return redirect(home)
-        return HttpResponseRedirect(reverse('boardapp:home'))
+        return redirect(home)
+        # return HttpResponseRedirect(reverse('boardapp.home'))
     else:
         return render(request,'boardapp/post.html')
 
-def detail(request, id):
+def detail(request):
     try:
-        board = Board.objects.get(id=Board.postNum)
+        board = Board.objects.get(pk=Board.postNum) 
     except Board.DoesNotExist:
         raise Http404("Does not exist!")
     return render(request, 'boardapp/detail.html', {'boardapp':board})
