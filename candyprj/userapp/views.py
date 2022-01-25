@@ -23,7 +23,7 @@ def profile(request):
     profile = User.objects.get(id = 'abc')
     return render(request, 'userapp/profile.html',{'profile':profile})
 
-<<<<<<< HEAD
+
 # from django.shortcuts import redirect
 # from .forms import ProfileForm
 # def update(request):
@@ -46,9 +46,6 @@ def profile(request):
 #         })
 
 
-
-  
-=======
 def login(request):
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -72,4 +69,4 @@ def logout(request):
     return render(request,'boardapp/main.html')
 
 
->>>>>>> a6d5d0252421736f8fea5194a01d30063c78c4ef
+
