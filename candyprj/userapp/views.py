@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import User
 from django.http import HttpResponse
-from django.contrib.auth import  login
-# from django.contrib.auth.models import User
-# from django.contrib import auth
 
 def signup(request):
     if request.method == 'POST':
@@ -33,16 +30,3 @@ def login(request):
     else:
         return render(request, 'userapp/login.html')
 
-# def login(request):
-#     if request.method == "POST":
-#        id = request.POST.get('id')
-#        pw = request.POST.get('pw')
-#        user=auth.authenticate(request,id=id,pw=pw)
-#        if user is not None:
-#            auth.login(request, user)
-#            return HttpResponse('로그인 성공')
-#        else:
-#            return HttpResponse('로그인 실패')
-#     else:
-#         return render(request, 'userapp/login.html')
-        
