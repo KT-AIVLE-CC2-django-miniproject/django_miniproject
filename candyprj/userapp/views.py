@@ -23,20 +23,17 @@ def profile(request):
     profile = User.objects.get(id = 'abc')
     return render(request, 'userapp/profile.html',{'profile':profile})
 
-def update(request):
-    if request.method == 'POST':
-        id = request.POST.get('id')
-        pw = request.POST.get('pw')
-        name = request.POST.get('name')
-        birth = request.POST.get('birth')
-        mail = request.POST.get('mail')
-        m = User(id=id, pw=pw, name=name, birth=birth, mail=mail)
+from django.contrib.auth.forms import UserChangeForm
 
-        m.save()
-        return HttpResponse(
-            '가입 완료<br>%s %s %s %s %s ' % (id, pw, name, birth, mail))
-    else:
-        return render(request, 'userapp/update.html')
+def update(request) :
+    if request.method == "POST" :
+        pass
+    else :
+        form = UserChangeForm()
+    context = {
+        'form' : form,
+    }
+    return render(request, 'userapp/profile.html', context)
 
 
 
