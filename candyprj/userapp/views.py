@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import User
 from django.http import HttpResponse
 def signup(request):
@@ -18,3 +18,7 @@ def signup(request):
             '가입 완료<br>%s %s %s %s %s ' % (id, pw, name, birth, mail))
     else:
         return render(request, 'userapp/signup.html')
+
+def profile(request):
+    profile = User.objects.get(id = 'abc')
+    return render(request, 'userapp/profile.html',{'profile':profile})
