@@ -36,7 +36,7 @@ def profile(request):
 #     return render(request, 'userapp/update.html', {'form': form})
 
 
-def update_profile(request, id):
+def update(request, id):
     user = User.objects.get(pk=id)
     
     user.profile.bio = 'Hello i am jihun ...'
