@@ -24,28 +24,6 @@ def profile(request):
     return render(request, 'userapp/profile.html',{'profile':profile})
 
 
-# from django.shortcuts import redirect
-# from .forms import ProfileForm
-# def update(request):
-#     if request.method == "POST":
-#         form = ProfileForm(request.POST)
-#         if form.is_valid():
-#             """
-#             현재 유저의 프로필을 가져오고
-#             받은 값으로 프로필을 갱신한다.
-#             """
-#             old_profile = request.user.profile
-#             old_profile.pw = form.cleaned_data['pw']
-#             old_profile.name = form.cleaned_data['name']
-#             old_profile.save()
-#             return redirect('profile')
-#     elif request.method == "GET":
-#         form = ProfileForm(instance=request.user.profile)
-#         return render(request, 'user/profile_form.html', {
-#             'form': form,
-#         })
-
-
 def login(request):
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -67,6 +45,4 @@ def logout(request):
     del request.session['name'] # 개별 삭제
     request.session.flush() # 전체 삭제
     return render(request,'boardapp/main.html')
-
-
 
