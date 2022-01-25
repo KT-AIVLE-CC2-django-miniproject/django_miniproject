@@ -26,7 +26,18 @@ def login(request):
             m = User.objects.get(id=id, pw=pw)
         except User.DoesNotExist as e:
             return HttpResponse('로그인 실패')
+        else:
+            request.session['id'] = m.id
+            request.session['name'] = m.name
+
         return render(request,'boardapp/main.html')
     else:
         return render(request, 'userapp/login.html')
+
+def logout(request):
+    del request.session['id'] # 개별 삭제
+    del request.session['name'] # 개별 삭제
+    request.session.flush() # 전체 삭제
+    return render(request,'boardapp/main.html')
+
 
