@@ -26,7 +26,7 @@ def login(request):
             m = User.objects.get(id=id, pw=pw)
         except User.DoesNotExist as e:
             return HttpResponse('로그인 실패')
-        return HttpResponse('로그인 성공')
+        return render(request,'boardapp/main.html')
     else:
         return render(request, 'userapp/login.html')
 
