@@ -21,7 +21,7 @@ def post(request):
     if request.method =="POST":
         title = request.POST['title']
         content = request.POST['content']
-        id = request.POST['id']  # 로그인 후에 세션에 저장된 값으로 id 알아내기 
+        id = request.GET.get(User.id) # 로그인 후에 세션에 저장된 값으로 id 알아내기 
 
         board = Board(title = title, content = content, id = id, recuritment = True)
 
