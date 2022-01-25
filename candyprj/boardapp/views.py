@@ -29,7 +29,7 @@ def write_board(request):
     wboard = Board(id= u, title=request.POST['title'], 
     content = request.POST['detail'], pub_date=timezone.now())
     wboard.save()
-    # return HttpResponseRedirect(reverse('boardapp.detail'))
+    # return HttpResponseRedirect(reverse('boardapp.detail', args=(postNum,)))
 
 
 def post(request):
@@ -44,9 +44,9 @@ def post(request):
     else:
         return render(request,'boardapp/post.html')
 
-def detail(request, id):
+def detail(request):
     try:
-        board = Board.objects.get(id=Board.postNum)
+        board = Board.objects.get(Board.postNum) 
     except Board.DoesNotExist:
         raise Http404("Does not exist!")
     return render(request, 'boardapp/detail.html', {'boardapp':board})
