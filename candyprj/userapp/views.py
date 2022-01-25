@@ -35,14 +35,17 @@ def login(request):
         else:
             request.session['id'] = m.id
             request.session['name'] = m.name
+            
 
-        return render(request,'boardapp/main.html')
+        # return render(request,'boardapp/main.html')
+        return redirect('../../board/main')
     else:
         return render(request, 'userapp/login.html')
 
 def logout(request):
-    del request.session['id'] # 개별 삭제
-    del request.session['name'] # 개별 삭제
+    # del request.session['id'] # 개별 삭제
+    # del request.session['name'] # 개별 삭제
     request.session.flush() # 전체 삭제
-    return render(request,'boardapp/main.html')
+    # return render(request,'boardapp/main.html')
+    return redirect('../../board/main')
 
