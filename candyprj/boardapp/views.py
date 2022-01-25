@@ -36,11 +36,14 @@ def post(request):
     if request.method =="POST":
         title = request.POST['title']
         content = request.POST['content']
-        # id = request.POST['id']
-        board = Board(title = title, content = content)
+        id = request.POST['id']
+        pub_date = request.POST['pub_date']
+        recuritment = request.POST['recuritment']
+        board = Board(title = title, content = content, id = id, pub_date = pub_date, recuritment = recuritment)
+
         board.save()
-        # return redirect(home)
-        return HttpResponseRedirect(reverse('boardapp.home'))
+        return redirect(home)
+        # return HttpResponseRedirect(reverse('boardapp.home'))
     else:
         return render(request,'boardapp/post.html')
 
