@@ -12,6 +12,6 @@ class User(models.Model):
     id = models.CharField(max_length=20 ,primary_key=True)
     pw = models.CharField(max_length=45)
     name = models.CharField(max_length=45)
-    birth = models.DateTimeField()
+    birth = models.CharField(max_length=45)
     mail = models.CharField(max_length=45)
     reportCnt = models.IntegerField(default=0)
