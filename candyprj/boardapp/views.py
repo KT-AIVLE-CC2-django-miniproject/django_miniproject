@@ -12,15 +12,15 @@ def home(request):
     paginator = Paginator(all_boards, 10)
     page = int(request.GET.get('page',1))
     board_list = paginator.get_page(page)
-    return render(request, 'board/home.html', {'title': 'Board List',
+    return render(request, 'boardapp/home.html', {'title': 'Board List',
     'board_list' : board_list})
 
 def detail(request, postNum):
     board = Board.objects.get(id=postNum)
-    return render(request, 'board/detail.html', {'boardapp':board})
+    return render(request, 'boardapp/detail.html', {'boardapp':board})
 
 def create(request):
-    return render(request, 'board/create.html')
+    return render(request, 'boardapp/create.html')
 
 def write_board(request, postNum):
     wboard = Board(title=request.POST['title'], 
