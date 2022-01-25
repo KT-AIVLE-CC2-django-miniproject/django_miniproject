@@ -17,21 +17,6 @@ def home(request):
     return render(request, 'boardapp/home.html', {'title': 'Board List',
     'board_list' : board_list})
 
-# def detail(request, postNum):
-#     board = Board.objects.get(id=postNum)
-#     return render(request, 'boardapp/detail.html', {'boardapp':board})
-
-def create(request):
-    return render(request, 'boardapp/create.html')
-
-def write_board(request):
-    u = User.objects.get(id='kjh')
-    wboard = Board(id= u, title=request.POST['title'], 
-    content = request.POST['detail'], pub_date=timezone.now())
-    wboard.save()
-    # return HttpResponseRedirect(reverse('boardapp.detail'))
-
-
 def post(request):
     if request.method =="POST":
         title = request.POST['title']
@@ -51,5 +36,7 @@ def detail(request, id):
         raise Http404("Does not exist!")
     return render(request, 'boardapp/detail.html', {'boardapp':board})
 
-
+def create_reply(request, postNum):
+    bd = Board.objects.get(id=postNum)
+    bd.reply_set.create(comment=request.POST['comment'], )
 
