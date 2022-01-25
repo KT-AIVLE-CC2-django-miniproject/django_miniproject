@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.utils import timezone
 from .models import Board
+from userapp.models import User
 # from userapp.models import User
 
 # Create your views here.
@@ -22,8 +23,9 @@ def detail(request, postNum):
 def create(request):
     return render(request, 'boardapp/create.html')
 
-def write_board(request, postNum):
-    wboard = Board(title=request.POST['title'], 
-    content = request.POST['detail'], id = 'kim', pub_date=timezone.now())
+def write_board(request):
+    u = User.objects.get(id='kjh')
+    wboard = Board(id= u, title=request.POST['title'], 
+    content = request.POST['detail'], pub_date=timezone.now())
     wboard.save()
-    return HttpResponseRedirect(reverse('boardapp.detail', args=(postNum,)))
+    return HttpResponseRedirect(reverse('boardapp:detail'))
