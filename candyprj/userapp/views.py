@@ -23,6 +23,7 @@ def profile(request):
     profile = User.objects.get(id = 'abc')
     return render(request, 'userapp/profile.html',{'profile':profile})
 
+
 def login(request):
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -44,5 +45,4 @@ def logout(request):
     del request.session['name'] # 개별 삭제
     request.session.flush() # 전체 삭제
     return render(request,'boardapp/main.html')
-
 
