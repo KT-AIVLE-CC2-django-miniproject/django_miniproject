@@ -1,7 +1,9 @@
-# from django import forms
-# from .models import User
+from django import forms
+from .models import User
 
-# class UserUpdateForm(forms.ModelForm):
-#     class Meta:
-#         model = User
-#         fields = ['pw', 'name', 'mail']
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            
+        ]
