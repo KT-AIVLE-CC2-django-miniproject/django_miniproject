@@ -7,5 +7,6 @@ urlpatterns = [
     path('post/', views.post, name ='post'),
     path('post/reply/', views.reply, name ='reply'),
     path('<int:Board.postNum>/', views.detail, name ='detail'),
+    path('main/', views.main, name ='main'),
     # path('<int:board.postNum>/create_reply', views.create_reply, name ='create_reply'),
 ]

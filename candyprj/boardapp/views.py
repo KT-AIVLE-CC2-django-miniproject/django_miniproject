@@ -43,3 +43,5 @@ def reply(request, postNum):
     bd.reply_set.create(comment=request.POST['comment'], rep_date=timezone.now())
     return HttpResponseRedirect(reverse('boardapp.detail'))
 
+def main(request) :
+    return render(request,'boardapp/main.html')
