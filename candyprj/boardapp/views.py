@@ -1,5 +1,5 @@
 from audioop import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.utils import timezone
@@ -17,9 +17,9 @@ def home(request):
     return render(request, 'boardapp/home.html', {'title': 'Board List',
     'board_list' : board_list})
 
-def detail(request, postNum):
-    board = Board.objects.get(id=postNum)
-    return render(request, 'boardapp/detail.html', {'boardapp':board})
+# def detail(request, postNum):
+#     board = Board.objects.get(id=postNum)
+#     return render(request, 'boardapp/detail.html', {'boardapp':board})
 
 def create(request):
     return render(request, 'boardapp/create.html')
@@ -44,7 +44,12 @@ def post(request):
     else:
         return render(request,'boardapp/post.html')
 
-# def detail1(request, id): id받아와서 게시글 보기
+def detail(request, id):
+    try:
+        board = Board.objects.get(id=Board.postNum)
+    except Board.DoesNotExist:
+        raise Http404("Does not exist!")
+    return render(request, 'boardapp/detail.html', {'boardapp':board})
 
 
 
