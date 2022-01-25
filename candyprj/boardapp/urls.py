@@ -3,11 +3,9 @@ from . import views
 
 app_name = 'boardapp'
 urlpatterns = [
-    path('home', views.home, name ='home'),
-    path('post', views.post, name ='post'),
+    path('home/', views.home, name ='home'),
+    path('post/', views.post, name ='post'),
+    path('post/reply/', views.reply, name ='reply'),
     path('post/<int:Board.postNum>', views.detail, name ='detail'),
-    # path('<int:board_id>/', views.detail, name ='detail'),
-    #path('create/', views.create, name ='create'),
-    # path('create/write_board', views.write_board, name ='write_board'),
-    # path('<int:board_id>/create_reply', views.creat_reply, name ='create_reply'),
+    # path('<int:board.postNum>/create_reply', views.create_reply, name ='create_reply'),
 ]
