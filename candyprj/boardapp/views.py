@@ -36,7 +36,8 @@ def detail(request, id):
         raise Http404("Does not exist!")
     return render(request, 'boardapp/detail.html', {'boardapp':board})
 
-def create_reply(request, postNum):
+def reply(request, postNum):
     bd = Board.objects.get(id=postNum)
-    bd.reply_set.create(comment=request.POST['comment'], )
+    bd.reply_set.create(comment=request.POST['comment'], rep_date=timezone.now())
+    return HttpResponseRedirect(reverse('boardapp.detail'))
 
