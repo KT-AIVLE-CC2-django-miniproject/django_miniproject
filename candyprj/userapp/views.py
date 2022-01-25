@@ -23,6 +23,7 @@ def profile(request):
     profile = User.objects.get(id = 'abc')
     return render(request, 'userapp/profile.html',{'profile':profile})
 
+<<<<<<< HEAD
 # from django.shortcuts import redirect
 # from .forms import ProfileForm
 # def update(request):
@@ -47,3 +48,28 @@ def profile(request):
 
 
   
+=======
+def login(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        pw = request.POST.get('pw')
+        try:
+            m = User.objects.get(id=id, pw=pw)
+        except User.DoesNotExist as e:
+            return HttpResponse('로그인 실패')
+        else:
+            request.session['id'] = m.id
+            request.session['name'] = m.name
+
+        return render(request,'boardapp/main.html')
+    else:
+        return render(request, 'userapp/login.html')
+
+def logout(request):
+    del request.session['id'] # 개별 삭제
+    del request.session['name'] # 개별 삭제
+    request.session.flush() # 전체 삭제
+    return render(request,'boardapp/main.html')
+
+
+>>>>>>> a6d5d0252421736f8fea5194a01d30063c78c4ef
