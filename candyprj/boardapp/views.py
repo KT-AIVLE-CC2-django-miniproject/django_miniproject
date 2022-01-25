@@ -25,7 +25,7 @@ def post(request):
         board = Board(title = title, content = content)
         board.save()
         # return redirect(home)
-        return HttpResponseRedirect(reverse('boardapp.home'))
+        return HttpResponseRedirect(reverse('boardapp:home'))
     else:
         return render(request,'boardapp/post.html')
 
