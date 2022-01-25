@@ -1,0 +1,138 @@
+<html>
+<head>
+	{% if request.session.user_id %}
+        <a href='../user/mypage/'> {{request.session.user_name}}님 안녕하세요</a>
+        <button id = 'logoutBtn' onclick="location.href='/user/logout'">로그아웃</button>
+	{% else %}
+	    <button id='loginBtn' type="button" onclick="location.href='/user/login/'">로그인</button>
+	{%endif%}
+</head>
+
+<body>
+    {% comment %} <nav>
+    <ul class='category'>
+        {%for category in Category%}
+            <li data-toggle='dropdown'>{{category.name}}</li>
+            {%for sub in SubCategory%}
+            <ul class='subcategory'>
+                {%if category.id == sub.category_id%}
+                    <li> {{sub.name}}</li>
+                    {%for subsub in SubSubCategory%}
+                        <ul class = 'subsubcategory'>
+                            {%if sub.id == subsub.subcategory_id%}
+                                <li> {{subsub.name}}</li>
+                            {%endif%}
+                        </ul>
+                    {%endfor%}
+                {%endif%}
+            </ul>
+            {%endfor%}
+        {%endfor%}
+        </ul>
+    </nav> {% endcomment %}
+    <div>
+        <br>
+        <table border='1'>
+            <caption text-align:left>게시판</caption>
+            <th>글번호</th>
+            <th>글제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <tr><!-- 첫번째 줄 시작 -->
+                <td>1</td>
+                <td>
+
+                    <a>ㄱㄱㄱㄱ</a>
+
+                </td>
+                <td>가</td>
+                <td>2021.01.22</td>
+            </tr><!-- 첫번째 줄 끝 -->
+            <tr><!-- 첫번째 줄 시작 -->
+                <td>2</td>
+                <td>ㄴㄴㄴㄴ</td>
+                <td>나</td>
+                <td>2021.01.23</td>
+            </tr><!-- 첫번째 줄 끝 -->
+            </table>
+        </div>
+</body>
+
+{% comment %} <div class="row mt-2">
+    <div class="col-12">
+      css 적용?
+      <nav aria-label="Page navigation example">
+       <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+     </nav>
+    </div>
+  </div> 
+  {% endcomment %}
+
+  {% comment %} {% block nav_links_ul %}
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    {% block nav_links_outer %}
+        <li class="nav-header">{% block nav_heading %}CATEGORY{% endblock nav_heading%}</li>
+        {% block nav_links %}
+            <li class="nav-item has-tree-view ">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-object-group"></i> <p>Parents</p>
+                    <p><i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview menu-open">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i> child
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        {% endblock nav_links %}
+    {% endblock nav_links_outer %}
+    </ul>
+</nav>
+{% endblock nav_links_ul %} {% endcomment %}
+
+<ul>
+    <li>
+        <a>스터디 구인</a>
+    </li>
+    <li>
+        <a>면접 공유</a>
+        <ul>
+            <li>
+                <a>IT 설계</a>
+                <ul>
+                    <li><a>KT</a></li>
+                    <li><a>Samsung</a></li>
+                    <li><a>Naver</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>IT 인프라</a>
+                <ul>
+                    <li><a>KT</a></li>
+                    <li><a>Samsung</a></li>
+                    <li><a>Naver</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>SW 개발</a>
+                <ul>
+                    <li><a>KT</a></li>
+                    <li><a>Samsung</a></li>
+                    <li><a>Naver</a></li>
+                </ul>
+            </li>
+        </ul>   
+    </li>   
+</ul> 
+

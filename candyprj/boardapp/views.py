@@ -48,3 +48,5 @@ def post(request):
 
 
 
+def main(request) :
+    return render(request,'boardapp/main.html')
