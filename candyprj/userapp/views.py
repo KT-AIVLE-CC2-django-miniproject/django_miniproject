@@ -1,5 +1,6 @@
 from audioop import reverse
 from django.shortcuts import render,redirect
+from sqlalchemy import null
 from .models import User
 # from django.contrib.auth.models import User
 # from django.contrib import auth
@@ -40,7 +41,9 @@ def update(request):
         update.birth = request.POST.get('birth')
         update.mail = request.POST.get('mail')
         update.save()
-        
+
+        # if update.pw !="" and update.name !="" and update.birth !="" and update.mail !="":
+        #     update.save()                 //모든 값이 입력됐을 경우만 db에 저장
         # print(result)
         # return HttpResponseRedirect(reverse('profile'))
         return render(request, 'userapp/new_profile.html')
