@@ -66,6 +66,7 @@ def update(request):
         
        
         update.save()
+        
         # print(result)
         # return HttpResponseRedirect(reverse('profile'))
         return render(request, 'userapp/new_profile.html')
