@@ -69,7 +69,7 @@ def logout(request):
     # del request.session['name'] # 개별 삭제
     request.session.flush() # 전체 삭제
     # return render(request,'boardapp/main.html')
-    return redirect('../../board/')
+    return redirect('../../board/home')
 
 # def profile(request):
 #     id = request.session.get('id')
