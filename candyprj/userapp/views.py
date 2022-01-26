@@ -1,10 +1,9 @@
 from audioop import reverse
 from django.forms import NullBooleanField
 from django.shortcuts import render,redirect
+from django.contrib import messages #알람을 위한 임포트
 from sqlalchemy import null
 from .models import User
-# from django.contrib.auth.models import User
-# from django.contrib import auth
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 def signup(request):
@@ -16,9 +15,9 @@ def signup(request):
         mail = request.POST.get('mail')
         m = User(id=id, pw=pw, name=name, birth=birth, mail=mail)
         m.save()
-        return render(request, 'userapp/login.html')
+        return render(request, 'boardapp/login.html')
     else:
-        return render(request, 'userapp/signup.html')
+        return render(request, 'boardapp/signup.html')
 
 # def profile(request):
 #     profile = User.objects.get(id = 'abc')
@@ -86,7 +85,8 @@ def login(request):
         try:
             m = User.objects.get(id=id, pw=pw)
         except User.DoesNotExist as e:
-             return render(request, 'userapp/login2.html')
+            messages.warning(request, "로그인 실패!")
+            return render(request, 'boardapp/login.html')
 
         else:
             request.session['id'] = m.id
@@ -95,7 +95,7 @@ def login(request):
         # return render(request,'boardapp/main.html')
         return redirect('../../board/home')
     else:
-        return render(request, 'userapp/login.html')
+        return render(request, 'boardapp/login.html')
 
 def logout(request):
     # del request.session['id'] # 개별 삭제
