@@ -16,10 +16,10 @@ class Board(models.Model):
     title = models.CharField(max_length=100)
     content = models.CharField(max_length= 1000)
     pub_date = models.DateTimeField()
-    # recuritment = models.BooleanField()
 
     def __str__(self):
         return self.title
+        
 class Reply(models.Model):
     '''
     repNum : 댓글번호(PK)
