@@ -40,12 +40,13 @@ def write(request): #게시글 목록에서 글쓰기 버튼 클릭 시 쓰기 �
 
 def write_board(request): #쓰기 페이지에서 글 등록시 submit 처리
     # uid = ss.GET.get('ses_id')
-    uid = request.session('id')
-    # uid = User.objects.get(id = id)
-    b = Board(id = uid,title=request.POST['title'], content=request.POST['detail'],
-          pub_date=timezone.now()) #recuritment 랑 id 문제
+    uid = request.session['id']
+    uid = User.objects.get(id = uid)
+
+    b = Board(id = uid,title=request.POST['title'], content=request.POST['detail'], 
+    pub_date=timezone.now()) #recuritment --> 필요없다. 조회할때만 모집중인지 아닌지 버튼으로 ex 좋아요, 싫어요
     b.save()
-    return HttpResponseRedirect(reverse('boardapp:show'))
+    return HttpResponseRedirect(reverse('boardapp:index'))
 
 def create_reply(request, postNum): # 상세 페이지에서 댓글 동록시 submit 처리
     b = Board.objects.get(postNum = postNum)
@@ -54,3 +55,16 @@ def create_reply(request, postNum): # 상세 페이지에서 댓글 동록시 su
 
 def main(request):
     return render(request,'boardapp/main.html')
+
+
+def update(request, board_id):
+    b = Board.objects.get(id= board_id)
+    if request.method == "POST":
+        b.title=request.POST['title']
+        b.content=request.POST['detail']
+        b.pub_date=timezone.now()
+        b.save()
+        return HttpResponseRedirect(reverse('boardapp:detail',args=(board_id,)))
+    else:
+        b=Board
+        return render(request, 'board/update.html', {'board':b})
