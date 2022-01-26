@@ -16,7 +16,8 @@ from .models import Board
 #     return render(request, 'boardapp/index.html', {'title':'data'})
 
 def home(request):
-    return render(request, 'boardapp/home.html', {'title':'home'})    
+    board = Board.objects.all().order_by('-postNum')[:5]
+    return render(request, 'boardapp/home.html', {'title':'home', 'board':board})
 
 def board(request):
     return render(request, 'boardapp/board.html', {'title':'board'})  
@@ -76,3 +77,15 @@ def delete(request, postNum):
     b = Board.objects.get(id=postNum)
     b.delete()
     return redirect('board:index')
+
+def search(request):
+    search = request.GET.get('search')
+    if search=='':
+        searchBoard = Board.objects.all().order_by('-postNum')[:5]
+    else:
+        try:
+            searchBoard = Board.objects.filter(title__contains=search).order_by('-postNum')
+        except:
+            searchBoard = Board.objects.all().order_by('-postNum')[:5]
+
+    return render(request, 'boardapp/home.html', {'board':searchBoard})

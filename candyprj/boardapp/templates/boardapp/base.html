@@ -102,8 +102,8 @@
     </nav>
 </head>
 {% block content %}
-<body>
-    <br>
+ <body>
+    {% comment %}<br>
     <div class = 'category' style="float:left; background-color:#bcbcbc">
 
         <div class='search'>
@@ -166,7 +166,7 @@
                         {%endif%}
                 </table>
             </div>
-            </div>
+            </div> {% endcomment %}
         {% comment %} 기존 작성한것  {% endcomment %}
         {% comment %} <div style="text-align:right">
         </div> {% endcomment %}
@@ -238,19 +238,3 @@
 </body>
 {% endblock %}
 </html>
-
-
-<script>
-    function showDropdown() {
-        document.getElementById("myDropdown").classList.toggle("show");
-    }
-    function alertAccess() {
-        alert("로그인 후 이용 가능합니다.")
-    }
-
-    document.getElementById("searchBtn").addEventListener("click", () => {
-        text = document.getElementById('searchText').value
-
-        location.href='/board/search/?search=' + text;
-      });
-</script>
