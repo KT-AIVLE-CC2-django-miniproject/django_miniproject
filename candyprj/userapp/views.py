@@ -19,10 +19,10 @@ def signup(request):
     else:
         return render(request, 'userapp/signup.html')
 
-
 def profile(request):
     profile = User.objects.get(id = 'abc')
     return render(request, 'userapp/profile.html',{'profile':profile})
+
 
 # from .forms import UserUpdateForm
 # def update(request):
@@ -64,3 +64,7 @@ def logout(request):
     # return render(request,'boardapp/main.html')
     return redirect('../../board/main')
 
+# def profile(request):
+#     id = request.session.get('id')
+#     profile = User.objects.get(id = id)
+#     return render(request, 'userapp/profile.html',{'profile':profile})
