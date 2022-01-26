@@ -39,9 +39,8 @@ def update(request):
         update.name = request.POST.get('name')
         update.birth = request.POST.get('birth')
         update.mail = request.POST.get('mail')
-        
-       
         update.save()
+        
         # print(result)
         # return HttpResponseRedirect(reverse('profile'))
         return render(request, 'userapp/new_profile.html')
