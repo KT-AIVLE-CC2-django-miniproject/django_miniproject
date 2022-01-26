@@ -1,0 +1,258 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Home{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
+    <script src="{% static 'bootstrap/css/bootstrap.min.css'%}"></script>
+    <style>
+
+        .wrap_content {
+            margin-top: 20px;
+        }
+
+        body {
+            margin: 0px;
+            background-color: #F0EDCC;
+        }
+
+    </style>
+
+    <!--
+    <div class="topnav">
+        <div class="center">
+            <div class="menu">
+                <a href='boardapp/home'>Home</a>
+                <a href='boardapp/board'>Board</a>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <!--
+    <div class="sidemenu">
+        <ul>
+            <li><a href='boardapp/home'>home</a></li>
+            <li><a href='boardapp/board'>board</a></li>
+            <li><a href="#">menu3</a></li>
+            <li><a href="#">menu4</a></li>
+        <ul>
+    </div>
+    -->
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            {% comment %} 홈페이지 {% endcomment %}
+            {% comment %} <div class='user' style = "text-align:right"> {% endcomment %}
+            <a class="navbar-brand" href='/board/'>Candy</a> 
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {% if title == 'main' %} active aria-current='page' {% endif %}" href='/board/main'>스터디 모집</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if title == 'board' %} active aria-current='page' {% endif %}" href='boardapp/board'>기업별 면접 공유</a>
+                    </li>
+                    {% if request.session.id %}
+    
+                    <li class="nav-item">
+                        <a class="nav-link {% if title == 'mypage' %} active aria-current='page' {% endif %}" href='/user/profile'>마이페이지</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if title == 'write' %} active aria-current='page' {% endif %}" href="{% url 'boardapp:write' %}">글 작성</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if title == 'logout' %} active aria-current='page' {% endif %}"  href='/user/logout'>로그아웃</a>
+                    </li>
+                    <button id='sessonBtn' type="button" onclick="location.href='/user/profile/'">{{request.session.name}}님 안녕하세요! </button>
+                    
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if title == 'login' %} active aria-current='page' {% endif %}"  href='/user/login'>로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if title == 'mypage' %} active aria-current='page' {% endif %}" href='/user/signup'>회원가입</a>
+                    </li>
+                    {%endif%}
+                    
+                    {% comment %} <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            기업별 면접 공유 
+                        </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">KT</a></li>
+                        <li><a class="dropdown-item" href="#">Samsung</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Nacver</a></li>
+                    </ul> {% endcomment %}
+                </ul>
+                {% comment %} <form class="form-inline justify-content-center" style="text-align: center;">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search for" aria-label="Search">
+                </form> {% endcomment %}
+            </div>
+            
+        </div>
+    </nav>
+</head>
+{% block content %}
+<body>
+    <br>
+    <div class = 'category' style="float:left; background-color:#bcbcbc">
+
+        <div class='search'>
+            <input type='text' placeholder='Search'>
+            <button> 검색 </button>
+        </div>
+        
+        <ul>
+            <li>
+                <a>스터디 구인</a>
+            </li>
+            <li>
+                <a>면접 공유</a>
+                <ul>
+                    <li>
+                        <a>IT 설계</a>
+                        <ul>
+                            <li><a>KT</a></li>
+                            <li><a>Samsung</a></li>
+                            <li><a>Naver</a></li>
+                        </ul>
+                    </li>
+                </ul>   
+            </li>   
+        </ul> 
+        </div>
+    
+        <div class = 'board'  style="float:left">
+            <p></p>
+            <div class='study'  style="float:left">
+    
+            <table border='1'>
+                <caption style = 'text-align:left'>게시판</caption>
+                <th>글번호</th>
+                <th>글제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <tr><!-- 첫번째 줄 시작 -->
+                    <td>1</td>
+                    <td>
+    
+                        <a>ㄱㄱㄱㄱ</a>
+    
+                    </td>
+                    <td>가</td>
+                    <td>2021.01.22</td>
+                </tr><!-- 첫번째 줄 끝 -->
+                <tr><!-- 첫번째 줄 시작 -->
+                    <td>2</td>
+                    <td>ㄴㄴㄴㄴ</td>
+                    <td>나</td>
+                    <td>2021.01.23</td>
+                </tr><!-- 첫번째 줄 끝 -->
+                </table>
+            </div>
+            
+            <div class='interview'  style="float:right">
+                <table border='1'>
+                    <caption style = 'text-align:left'>게시판</caption>
+                    <th>글번호</th>
+                    <th>글제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <tr><!-- 첫번째 줄 시작 -->
+                        <td>1</td>
+                        <td>
+        
+                            <a>ㄱㄱㄱㄱ</a>
+        
+                        </td>
+                        <td>가</td>
+                        <td>2021.01.22</td>
+                    </tr><!-- 첫번째 줄 끝 -->
+                    <tr><!-- 첫번째 줄 시작 -->
+                        <td>2</td>
+                        <td>ㄴㄴㄴㄴ</td>
+                        <td>나</td>
+                        <td>2021.01.23</td>
+                    </tr><!-- 첫번째 줄 끝 -->
+                    </table>
+            </div>
+        </div>
+        {% comment %} 기존 작성한것  {% endcomment %}
+        {% comment %} <div style="text-align:right">
+        </div> {% endcomment %}
+
+        {% comment %} <div style="height:280px;">
+            <table class="board">
+                <thead>
+                    <tr class="header">
+                        <th style="width:10%;">순번</th>
+                        <th style="width:60%">제목</th>
+                        <th style="width:30%">작성일자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if board_list %}
+                    {% for data in board_list %}
+                    <tr class="{% cycle '' 'even_bgcolor' %}">
+                        <td style="text-align:center;">{{ forloop.counter }}</td>
+                        <td>
+                            <a href="{% url 'boardapp:detail' data.id %}">
+                                {{ data.title }}
+                            </a>
+                        </td>
+                        <td>{{ data.pub_date|date:'Y-m-d' }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td>작성된 게시글이 없습니다.</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div style="text-align:center">
+            <div class="pagination">
+            
+                <div style="width:35%; margin: 5px;">
+                {% if board_list.has_previous %}
+                    <a class="abutton" href="?page=1">맨 앞으로</a>
+                    <a class="abutton" href="?page={{ board_list.previous_page_number }}">이전</a>
+                {% endif %}
+                </div>
+
+                <div style="width:30%; margin: 5px;">
+                {% for page in board_list.paginator.page_range %}
+                    {% if page >= board_list.number|add:-2 and page <= board_list.number|add:2 %}
+                    <span class="{% if page == board_list.number %}current{% endif %}">
+                        <a href="?page={{ page }}">{{ page}}</a>
+                    </span>
+                    {% elif page >= board_list.number|add:-3 and page <= board_list.number|add:3 %}
+                        ..
+                    {% endif %}
+                {% endfor %}
+                </div>
+
+                <div style="width:35%; margin: 5px;">
+                {% if board_list.has_next %}
+                    <a class="abutton" href="?page={{ board_list.next_page_number }}">다음</a>
+                    <a class="abutton" href="?page={{ board_list.paginator.num_pages }}">맨 뒤로</a>
+                {% endif %}
+                </div>
+            </div>  
+        </div>  {% endcomment %}
+
+
+</body>
+{% endblock %}
+</html>
