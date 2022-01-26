@@ -1,4 +1,5 @@
 from audioop import reverse
+from django.forms import NullBooleanField
 from django.shortcuts import render,redirect
 from .models import User
 # from django.contrib.auth.models import User
@@ -33,12 +34,35 @@ def update(request):
     # update = User.objects.get(id = 'abc')
     id = request.session.get('id')
     update = User.objects.get(id = id)
+    new = User.objects.get(id = id)
     if request.method == "POST":
         
+        # update.pw = request.POST.get('pw')
+        # update.name = request.POST.get('name')
+        # update.birth = request.POST.get('birth')
+        # update.mail = request.POST.get('mail')
         update.pw = request.POST.get('pw')
+        if update.pw =='':
+            update.pw = new.pw
+        else :
+            update.pw = update.pw
+        
         update.name = request.POST.get('name')
+        if update.name =='':
+            update.name = new.name
+        else :
+            update.name = update.name
+        
         update.birth = request.POST.get('birth')
+        if update.birth =='':
+            update.birth = new.birth
+        else :
+            update.birth = update.birth
         update.mail = request.POST.get('mail')
+        if update.mail =='':
+            update.mail = new.mail
+        else :
+            update.mail = update.mail
         
        
         update.save()
@@ -47,7 +71,7 @@ def update(request):
         return render(request, 'userapp/new_profile.html')
 
     else:
-        return render(request, 'userapp/update.html', {'update':update})
+        return render(request, 'userapp/update.html', {'update':update,'new':new})
 
 
 
