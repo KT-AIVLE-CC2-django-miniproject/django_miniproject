@@ -93,7 +93,7 @@ def login(request):
             request.session['name'] = m.name
             
         # return render(request,'boardapp/main.html')
-        return redirect('../../board/')
+        return redirect('../../board/home')
     else:
         return render(request, 'userapp/login.html')
 
