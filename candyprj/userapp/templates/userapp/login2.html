@@ -4,15 +4,7 @@
     비밀번호 : <input type="text" name="pw"><br>
     <input type="submit" value="로그인">
     <p>아이디와 비밀번호를 다시 확인하세요</p>
-    <button id = 'signupBtn' onclick="location.href='/user/signup'">회원가입</button>
+
     
 </form>
-{% comment %} {% if request.session.id %}
-    <a href="{% url 'userapp:login' %}">
-       {{ request.session.name }} 님 반갑습니다. (로그아웃)
-    </a>
-
-{% else %}
-    <p>아이디와 비밀번호를 다시 확인하세요</p>
-    <button id = 'signupBtn' onclick="location.href='/user/signup'">회원가입</button>
-{% endif %}  {% endcomment %}
+<button id = 'signupBtn' onclick="location.href='/user/signup'">회원가입</button>

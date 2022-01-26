@@ -68,10 +68,6 @@ def logout(request):
     return redirect('../../board/home')
 
 
-def forcemain(request):
-    return render(request,'boardapp/main.html')
-
-
 # def profile(request):
 #     id = request.session.get('id')
 #     profile = User.objects.get(id = id)
