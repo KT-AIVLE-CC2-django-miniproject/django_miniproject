@@ -29,7 +29,10 @@ def index(request): #게시글 목록
     paginator = Paginator(all_boards, 10)
     page = int(request.GET.get('page',1))
     board_list = paginator.get_page(page)
-    return render(request, 'boardapp/index.html', {'title':'Board List', 'board_list': board_list})
+
+    board = Board.objects.all().order_by('-postNum')[:5]
+    
+    return render(request, 'boardapp/index.html', {'title':'Board List', 'board_list': board_list, 'board':board})
 
 def detail(request, postNum): #게시글 제목 선택시 상세 페이지로 이동
     board = Board.objects.get(id=postNum)
