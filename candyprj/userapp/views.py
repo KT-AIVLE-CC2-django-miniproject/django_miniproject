@@ -18,26 +18,34 @@ def signup(request):
     else:
         return render(request, 'userapp/signup.html')
 
+# def profile(request):
+#     profile = User.objects.get(id = 'abc')
+#     return render(request, 'userapp/profile.html',{'profile':profile})
+
 def profile(request):
-    profile = User.objects.get(id = 'abc')
+    # profile = User.objects.get(id = 'abc')
+    id = request.session.get('id')
+    profile = User.objects.get(id = id)
     return render(request, 'userapp/profile.html',{'profile':profile})
 
 
 def update(request):
-    update = User.objects.get(id= 'abc')
+    # update = User.objects.get(id = 'abc')
+    id = request.session.get('id')
+    update = User.objects.get(id = id)
     if request.method == "POST":
         
         update.pw = request.POST.get('pw')
         update.name = request.POST.get('name')
         update.birth = request.POST.get('birth')
         update.mail = request.POST.get('mail')
-       
         update.save()
+        
+        # print(result)
         # return HttpResponseRedirect(reverse('profile'))
-        return render(request, 'userapp/profile.html')
+        return render(request, 'userapp/new_profile.html')
 
     else:
-        update = User
         return render(request, 'userapp/update.html', {'update':update})
 
 

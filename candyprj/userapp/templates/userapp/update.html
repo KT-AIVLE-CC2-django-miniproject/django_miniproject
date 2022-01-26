@@ -7,9 +7,10 @@
     이름 : <input type="text" name="name"><br>
     <h1>생일 :{{update.birth}}</h1>
     생일 : <input type="text" name="birth"><br>
-    <h1>현재 메일 : {{update.mail}}</h1>
+    <h1>현재 메일 : {{update.mail}}</h1>    
     메일 : <input type="text" name="mail"><br>
-    <button id='updateBtn' type="button" onclick="location.href='/user/profile/'">수정완료</button>
+    <button id='updateBtn' type="submit">수정완료</button>
+    
 </form>
 
-
+<button id='updateBtn' type="button" onclick="location.href='/user/profile/'">취소</button>
