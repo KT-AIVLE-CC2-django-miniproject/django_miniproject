@@ -129,3 +129,7 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+
+from django.contrib.messages import constants as messages_constants
+
+MESSAGE_LEVEL = messages_constants.DEBUG
