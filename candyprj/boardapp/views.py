@@ -40,11 +40,11 @@ def write(request): #게시글 목록에서 글쓰기 버튼 클릭 시 쓰기 �
 
 def write_board(request): #쓰기 페이지에서 글 등록시 submit 처리
     # uid = ss.GET.get('ses_id')
-    uid = request.session('id')
-    # uid = User.objects.get(id = id)
-    s = User.get(pk = id)
-    b = Board(id = s,title=request.POST['title'], content=request.POST['detail'],
-          pub_date=timezone.now()) #recuritment 랑 id 문제
+    uid = request.session['id']
+    uid = User.objects.get(id = uid)
+
+    b = Board(id = uid,title=request.POST['title'], content=request.POST['detail'], 
+    pub_date=timezone.now()) #recuritment --> 필요없다. 조회할때만 모집중인지 아닌지 버튼으로 ex 좋아요, 싫어요
     b.save()
     return HttpResponseRedirect(reverse('boardapp:index'))
 
