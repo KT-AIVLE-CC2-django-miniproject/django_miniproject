@@ -1,4 +1,19 @@
-<form method="post">
+{% extends 'boardapp/base.html' %}
+
+{% block title %}Index page{% endblock %}
+
+{% block content %}
+<style>
+	.card {
+		padding: 10px;		
+	}
+
+	.card h3 {
+		font-family: none;
+	} 
+</style>
+<h2>Index Page</h2>
+<form method="post" action="{% url 'userapp:login' %}">
     {% csrf_token %}
     아이디 : <input type="text" name="id"><br>
     비밀번호 : <input type="text" name="pw"><br>
@@ -13,3 +28,5 @@
         alert("회원가입되었습니다.")
     }
 </script>
+
+{% endblock  %}
