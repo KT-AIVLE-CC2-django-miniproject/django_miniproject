@@ -1,8 +1,7 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render,redirect
 from .models import User
+# from django.contrib.auth.models import User
+# from django.contrib import auth
 from django.http import HttpResponse
 def signup(request):
     if request.method == 'POST':
@@ -12,10 +11,8 @@ def signup(request):
         birth = request.POST.get('birth')
         mail = request.POST.get('mail')
         m = User(id=id, pw=pw, name=name, birth=birth, mail=mail)
-
         m.save()
-        return HttpResponse(
-            '가입 완료<br>%s %s %s %s %s ' % (id, pw, name, birth, mail))
+        return render(request, 'userapp/login.html')
     else:
         return render(request, 'userapp/signup.html')
 
@@ -35,10 +32,7 @@ def profile(request):
 #         form = UserUpdateForm(instance=request.user)
 #     return render(request, 'userapp/update.html', {'form': form})
 
-
-
-
-  
+ 
 def login(request):
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -46,12 +40,12 @@ def login(request):
         try:
             m = User.objects.get(id=id, pw=pw)
         except User.DoesNotExist as e:
-            return HttpResponse('로그인 실패')
+             return render(request, 'userapp/login2.html')
+
         else:
             request.session['id'] = m.id
             request.session['name'] = m.name
             
-
         # return render(request,'boardapp/main.html')
         return redirect('../../board/main')
     else:
@@ -63,4 +57,7 @@ def logout(request):
     request.session.flush() # 전체 삭제
     # return render(request,'boardapp/main.html')
     return redirect('../../board/main')
+
+def forcemain(request):
+    return render(request,'boardapp/main.html')
 
