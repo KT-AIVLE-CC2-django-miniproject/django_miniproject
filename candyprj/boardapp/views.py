@@ -57,14 +57,19 @@ def main(request):
     return render(request,'boardapp/main.html')
 
 
-def update(request, board_id):
-    b = Board.objects.get(id= board_id)
+def update(request, postNum):
+    b = Board.objects.get(id= postNum)
     if request.method == "POST":
         b.title=request.POST['title']
         b.content=request.POST['detail']
         b.pub_date=timezone.now()
         b.save()
-        return HttpResponseRedirect(reverse('boardapp:detail',args=(board_id,)))
+        return HttpResponseRedirect(reverse('boardapp:detail',args=(postNum,)))
     else:
         b=Board
         return render(request, 'board/update.html', {'board':b})
+
+def delete(request, postNum):
+    b = Board.objects.get(id=postNum)
+    b.delete()
+    return redirect('board:index')

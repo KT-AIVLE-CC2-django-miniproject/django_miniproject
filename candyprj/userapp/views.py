@@ -1,9 +1,8 @@
-from django.shortcuts import render
-
-# Create your views here.
 from audioop import reverse
 from django.shortcuts import render,redirect
 from .models import User
+# from django.contrib.auth.models import User
+# from django.contrib import auth
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 def signup(request):
@@ -14,10 +13,8 @@ def signup(request):
         birth = request.POST.get('birth')
         mail = request.POST.get('mail')
         m = User(id=id, pw=pw, name=name, birth=birth, mail=mail)
-
         m.save()
-        return HttpResponse(
-            '가입 완료<br>%s %s %s %s %s ' % (id, pw, name, birth, mail))
+        return render(request, 'userapp/login.html')
     else:
         return render(request, 'userapp/signup.html')
 
@@ -26,13 +23,14 @@ def signup(request):
 #     return render(request, 'userapp/profile.html',{'profile':profile})
 
 def profile(request):
+    # profile = User.objects.get(id = 'abc')
     id = request.session.get('id')
     profile = User.objects.get(id = id)
     return render(request, 'userapp/profile.html',{'profile':profile})
 
 
-
 def update(request):
+    # update = User.objects.get(id = 'abc')
     id = request.session.get('id')
     update = User.objects.get(id = id)
     if request.method == "POST":
@@ -41,13 +39,14 @@ def update(request):
         update.name = request.POST.get('name')
         update.birth = request.POST.get('birth')
         update.mail = request.POST.get('mail')
+        
        
         update.save()
+        # print(result)
         # return HttpResponseRedirect(reverse('profile'))
-        return render(request, 'userapp/profile.html')
+        return render(request, 'userapp/new_profile.html')
 
     else:
-        update = User
         return render(request, 'userapp/update.html', {'update':update})
 
 
@@ -59,12 +58,12 @@ def login(request):
         try:
             m = User.objects.get(id=id, pw=pw)
         except User.DoesNotExist as e:
-            return HttpResponse('로그인 실패')
+             return render(request, 'userapp/login2.html')
+
         else:
             request.session['id'] = m.id
             request.session['name'] = m.name
             
-
         # return render(request,'boardapp/main.html')
         return redirect('../../board/')
     else:
@@ -77,7 +76,9 @@ def logout(request):
     # return render(request,'boardapp/main.html')
     return redirect('../../board/home')
 
+
 # def profile(request):
 #     id = request.session.get('id')
 #     profile = User.objects.get(id = id)
 #     return render(request, 'userapp/profile.html',{'profile':profile})
+
