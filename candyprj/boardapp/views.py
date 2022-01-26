@@ -1,52 +1,70 @@
-from audioop import reverse
+from email.policy import default
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.core.paginator import Paginator
 from django.utils import timezone
+from django.urls import reverse
+from django.core.paginator import Paginator
 from matplotlib.pyplot import title
-from .models import Board
 from userapp.models import User
-# from userapp.models import User
 
-# Create your views here.
+from .models import Board
+
+# from userapp.views import ss
+
+#기본페이지
+# def index(request):
+#     return render(request, 'boardapp/index.html', {'title':'data'})
+
 def home(request):
-    all_boards = Board.objects.all().order_by("-pub_date")
+    return render(request, 'boardapp/home.html', {'title':'home'})    
+
+def board(request):
+    return render(request, 'boardapp/board.html', {'title':'board'})  
+
+
+#######################################################################
+
+def index(request): #게시글 목록
+    all_boards = Board.objects.all()
     paginator = Paginator(all_boards, 10)
     page = int(request.GET.get('page',1))
     board_list = paginator.get_page(page)
-    return render(request, 'boardapp/home.html', {'title': 'Board List',
-    'board_list' : board_list})
+    return render(request, 'boardapp/index.html', {'title':'Board List', 'board_list': board_list})
 
-def detail(request, postNum):
+def detail(request, postNum): #게시글 제목 선택시 상세 페이지로 이동
     board = Board.objects.get(id=postNum)
-    return render(request, 'boardapp/detail.html', {'boardapp':board})
+    return render(request, 'boardapp/detail.html', {'boardapp': board})
 
-def create(request):
-    return render(request, 'boardapp/create.html')
+def write(request): #게시글 목록에서 글쓰기 버튼 클릭 시 쓰기 페이지로 이동
+    return render(request, 'boardapp/write.html')
 
-def write_board(request):
-    u = User.objects.get(id='kjh')
-    wboard = Board(id= u, title=request.POST['title'], 
-    content = request.POST['detail'], pub_date=timezone.now())
-    wboard.save()
-    return HttpResponseRedirect(reverse('boardapp.detail', args=(postNum,)))
+def write_board(request): #쓰기 페이지에서 글 등록시 submit 처리
+    # uid = ss.GET.get('ses_id')
+    uid = request.session['id']
+    uid = User.objects.get(id = uid)
 
+    b = Board(id = uid,title=request.POST['title'], content=request.POST['detail'], 
+    pub_date=timezone.now()) #recuritment --> 필요없다. 조회할때만 모집중인지 아닌지 버튼으로 ex 좋아요, 싫어요
+    b.save()
+    return HttpResponseRedirect(reverse('boardapp:index'))
 
-def post(request):
-    if request.method =="POST":
-        title = request.POST['title']
-        content = request.POST['content']
-        # id = request.POST['id']
-        board = Board(title = title, content = content)
-        board.save()
-        # return redirect(home)
-        return HttpResponseRedirect(reverse('boardapp.home'))
-    else:
-        return render(request,'boardapp/post.html')
+def create_reply(request, postNum): # 상세 페이지에서 댓글 동록시 submit 처리
+    b = Board.objects.get(postNum = postNum)
+    b.reply_set.create(comment=request.POST['comment'], rep_date=timezone.now())
+    return HttpResponseRedirect(reverse('boardapp:detail', args=(postNum,)))  
 
-# def detail1(request, id): id받아와서 게시글 보기
-
-
-
-def main(request) :
+def main(request):
     return render(request,'boardapp/main.html')
+
+
+def update(request, board_id):
+    b = Board.objects.get(id= board_id)
+    if request.method == "POST":
+        b.title=request.POST['title']
+        b.content=request.POST['detail']
+        b.pub_date=timezone.now()
+        b.save()
+        return HttpResponseRedirect(reverse('boardapp:detail',args=(board_id,)))
+    else:
+        b=Board
+        return render(request, 'board/update.html', {'board':b})

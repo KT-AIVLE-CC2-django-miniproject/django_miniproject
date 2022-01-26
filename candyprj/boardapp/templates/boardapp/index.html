@@ -1,26 +1,9 @@
-{% comment %} <html>
-    <head>
-        <title>Blog List</title>
-    </head>
-    <body>
-        <h1>게시판 페이지입니다</h1>
-        <table>
-        {% for list in board_list %}
-            <ul>
-                <li>{{list.title}}</li>
-                <li>{{list.content}}</li>
-            </ul>
-        {% endfor %}
-        </table>
-    </body>
-</html> {% endcomment %}
-
-
-<!DOCTYPE html>
+{% extends 'boardapp/base.html' %} 
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ListPage</title>
 </head>
 <style type="text/css">
         thead {
@@ -71,7 +54,7 @@
             <h2>{{ title }}</h2>
         </div>
         <div style="text-align:right">
-            <a href="{% url 'boardapp:post' %}">글쓰기</a>
+            <a href="{% url 'boardapp:write' %}">글쓰기</a>
         </div>
 
         <div style="height:280px;">
@@ -89,7 +72,7 @@
                     <tr class="{% cycle '' 'even_bgcolor' %}">
                         <td style="text-align:center;">{{ forloop.counter }}</td>
                         <td>
-                            <a href="{% url 'board:detail' data.id %}">
+                            <a href="{% url 'boardapp:detail' data.id %}">
                                 {{ data.title }}
                             </a>
                         </td>
@@ -139,4 +122,4 @@
         </div> 
     </div>
 </body>
-</html>
+</html> {% endcomment %}
