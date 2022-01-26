@@ -1,11 +1,15 @@
 <form method="post">
     {% csrf_token %}
-    아이디 : <input type="text" name="id"><br>
+    <h1> 아이디 : {{update.id}}</h1>
+    <h1>현재 비밀번호 : {{update.pw}}</h1>
     비밀번호 : <input type="text" name="pw"><br>
+    <h1>현재 이름 :{{update.name}}</h1>
     이름 : <input type="text" name="name"><br>
+    <h1>생일 :{{update.birth}}</h1>
     생일 : <input type="text" name="birth"><br>
+    <h1>현재 메일 : {{update.mail}}</h1>
     메일 : <input type="text" name="mail"><br>
-    <input type="submit" value="가입">
+    <button id='updateBtn' type="button" onclick="location.href='/user/profile/'">수정완료</button>
 </form>
 
 
