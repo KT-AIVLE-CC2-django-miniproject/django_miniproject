@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Home{% endblock %}</title>
-    <script src="{% static 'bootstrap/js/jquery-3.6.0.min.js' %}"></script>
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
     <script src="{% static 'bootstrap/css/bootstrap.min.css'%}"></script>
     <style>
@@ -103,8 +101,9 @@
         </div>
     </nav>
 </head>
-{% block content %}
+
  <body>
+{% block content %}
     {% comment %}<br>
     <div class = 'category' style="float:left; background-color:#bcbcbc">
 
@@ -236,7 +235,7 @@
             </div>  
         </div>  {% endcomment %}
 
-
-</body>
 {% endblock %}
+</body>
+
 </html>
