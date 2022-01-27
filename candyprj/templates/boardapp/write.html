@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<style type="text/css">
+{% comment %} <style type="text/css">
         .content {
             max-width:500px;
             margin: auto;
@@ -39,15 +39,42 @@
 		.td_title {
 			background-color: #d8d8d8
 		}
-    </style>
+    </style> {% endcomment %}
 	{% block content %}
 <body>
+<div class="container">
+	<h5 class="my-3 border-bottom pb-2">게시글 작성</h5>
+	<form action="{% url 'boardapp:write_board' %}" method="post">
+		{% csrf_token %}
+		{% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+                {% if field.errors %}
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+		<div class="form-group">
+            <label for="subject">제목</label>
+            <input type="text" class="form-control" name="title" id="title"
+                   value="{{ board.title }}"/>
+        </div>
+        <div class="form-group">
+            <label for="content">내용</label>
+            <textarea class="form-control" name="detail"
+                      id="detail" rows="10">{{ board.content }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">저장하기</button>
+	</form>
+</div>
 
-    <div class="content">
+    {% comment %} <div class="content">
 		<form action="{% url 'boardapp:write_board' %}" method="post">
 		{% csrf_token %}
 
-		<div style="text-align:right;padding: 5px;">
+		<div style="padding: 5px;">
 			<input type="submit" value="저장">
 		</div>
 
@@ -73,7 +100,7 @@
 			<a href="{% url 'boardapp:home' %}">> Home</a>
 		</div>
 
-    </div>
+    </div>  {% endcomment %}
 
 </body>
 {% endblock %}
