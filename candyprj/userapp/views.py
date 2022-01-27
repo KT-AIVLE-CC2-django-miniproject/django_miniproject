@@ -15,9 +15,9 @@ def signup(request):
         mail = request.POST.get('mail')
         m = User(id=id, pw=pw, name=name, birth=birth, mail=mail)
         m.save()
-        return render(request, 'boardapp/login.html')
+        return render(request, 'boardapp/home.html')
     else:
-        return render(request, 'boardapp/signup.html')
+        return render(request, 'userapp/signup.html')
 
 
 def profile(request):
@@ -90,8 +90,7 @@ def login(request):
         try:
             m = User.objects.get(id=id, pw=pw)
         except User.DoesNotExist as e:
-            messages.warning(request, "로그인 실패!")
-            return render(request, 'boardapp/login.html')
+            return render(request, 'boardapp/login_fail.html')
 
         else:
             request.session['id'] = m.id

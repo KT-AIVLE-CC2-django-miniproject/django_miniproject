@@ -25,22 +25,6 @@
 		white-space: nowrap;
 	}
 </style>
-<div style="display:flex;">
-	<div class="card" style="width:33%;">
-		<h3>Django</h3>
-		Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
-	</div>
-
-	<div class="card" style="width:33%;">
-		<h3>Django</h3>
-		Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
-	</div>
-
-	<div class="card" style="width:33%;">
-		<h3>Django</h3>
-		Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
-	</div>
-</div> 
 
 <div class='search' style="float:right; margin:10px;">
 	<input id='searchText' type='text' placeholder='Search'>
@@ -50,6 +34,7 @@
 	<table border='1'>
 
 		<caption style = 'text-align:left; caption-side:top'>스터디 모집</caption>
+		<button id='write_BoardBtn' type="button" onclick="location.href='/board/write/'">게시글 작성</button>
 		<thead>
 		<th style="width:10%">글번호</th>
 		<th style="width:50%">글제목</th>
@@ -84,7 +69,40 @@
 			{%endif%}
 		</tbody>
 	</table>
+	<!-- Pagination -->
+	<div style="text-align:center">
+		<div class="pagination">
+		
+			<div style="width:35%; margin: 5px;">
+			{% if board.has_previous %}
+				<a class="abutton" href="?page=1">맨 앞으로</a>
+				<a class="abutton" href="?page={{ board.previous_page_number }}">이전</a>
+			{% endif %}
+			</div>
+
+			<div style="width:30%; margin: 5px;">
+			{% for page in board.paginator.page_range %}
+				{% if page >= board.number|add:-2 and page <= board.number|add:2 %}
+				<span class="{% if page == board.number %}current{% endif %}">
+					<a href="?page={{ page }}">{{ page}}</a>
+				</span>
+				{% elif page >= board.number|add:-3 and page <= board.number|add:3 %}
+					..
+				{% endif %}
+			{% endfor %}
+			</div>
+
+			<div style="width:35%; margin: 5px;">
+			{% if board_list.has_next %}
+				<a class="abutton" href="?page={{ board_list.next_page_number }}">다음</a>
+				<a class="abutton" href="?page={{ board_list.paginator.num_pages }}">맨 뒤로</a>
+			{% endif %}
+			</div>
+
+		</div>  
+	</div>
 </div>
+
 
 <script>
     function showDropdown() {

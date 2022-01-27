@@ -1,3 +1,4 @@
+{% extends 'boardapp/base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +40,9 @@
 			background-color: #d8d8d8
 		}
     </style>
+	{% block content %}
 <body>
+
     <div class="content">
 		<form action="{% url 'boardapp:write_board' %}" method="post">
 		{% csrf_token %}
@@ -71,5 +74,7 @@
 		</div>
 
     </div>
+
 </body>
+{% endblock %}
 </html>
