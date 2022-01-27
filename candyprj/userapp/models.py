@@ -15,3 +15,5 @@ class User(models.Model):
     birth = models.CharField(max_length=45)
     mail = models.CharField(max_length=45)
     reportCnt = models.IntegerField(default=0)
+    file = models.FileField(upload_to='%Y/%m/%d')
+

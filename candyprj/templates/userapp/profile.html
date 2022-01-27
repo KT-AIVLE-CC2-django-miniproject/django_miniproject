@@ -27,8 +27,11 @@
   <div class="row">
     <div class="card col-lg-6 offset-lg-3 mb-3">
       <div class="row" >
-        
-        <img class="round" src="{%static 'image/profile.jpg'%}" width="200" > <br>
+        {% if profile.file == "" %}
+        <img class="round" src="{%static 'image/profile.jpg'%}" width="200" >
+        {% else %}
+        <img class="round" src="{{ profile.file.url }}" width="200" height='200' >
+        {% endif %}
         
 
         <div class="card-body" >
