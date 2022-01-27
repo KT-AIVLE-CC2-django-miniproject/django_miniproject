@@ -14,8 +14,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('board/', include('boardapp.urls')),
     path('user/', include('userapp.urls')),
+<<<<<<< HEAD
 
 
     # path('board/new/' , views.new_topic, name='new_topoc'), #게시글 작성 페이지 url 추가 board/new/ ?
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+=======
+    # path('board/new/' , views.new_topic, name='new_topoc'), #게시글 작성 페이지 url 추가 board/new/ ?
+]
+>>>>>>> 30cc9365d36a56db2ab9198e313725178efa667f
 
