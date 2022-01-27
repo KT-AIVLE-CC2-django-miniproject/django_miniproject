@@ -13,7 +13,7 @@
 	} 
 </style>
 <h2>회원가입</h2>
-<form method="post" action="{% url 'userapp:login' %}">
+<form method="post" action="{% url 'userapp:signup' %}">
     {% csrf_token %}
     아이디 : <input type="text" name="id"><br>
     비밀번호 : <input type="text" name="pw"><br>
@@ -25,6 +25,7 @@
 
 <script>
     function signup(){
+
         alert("회원가입되었습니다.")
     }
 </script>
