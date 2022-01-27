@@ -24,15 +24,20 @@
 				{% csrf_token %}
 				아이디 : <input type="text" class="form-control" name="id"><br>
 				비밀번호 : <input type="text" class="form-control" name="pw"><br>
-				<h2>아이디 비밀번호를 확인하세요!</h2>  
-				<input type="submit" class="form-control" value="로그인">
-				
+				<input type="submit" class="form-control" value="로그인">  
 			</form>
 			<button id = 'signupBtn' class="form-control" onclick="location.href='/user/signup'">회원가입</button>
+			{% if messages %}
+				{% for message in messages %}
+					
+					{{ message.message }}
+				{% endfor %}
+			{% endif %}
 		</div>
 	</div>
 	
 </div>
 
-
 {% endblock  %}
+
+
