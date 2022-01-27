@@ -25,22 +25,6 @@
 		white-space: nowrap;
 	}
 </style>
-<div style="display:flex;">
-	<div class="card" style="width:33%;">
-		<h3>Django</h3>
-		Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
-	</div>
-
-	<div class="card" style="width:33%;">
-		<h3>Django</h3>
-		Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
-	</div>
-
-	<div class="card" style="width:33%;">
-		<h3>Django</h3>
-		Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
-	</div>
-</div> 
 
 <div class='search' style="float:right; margin:10px;">
 	<input id='searchText' type='text' placeholder='Search'>
@@ -50,6 +34,7 @@
 	<table border='1'>
 
 		<caption style = 'text-align:left; caption-side:top'>스터디 모집</caption>
+		<button id='write_BoardBtn' type="button" onclick="location.href='/board/write/'">게시글 작성</button>
 		<thead>
 		<th style="width:10%">글번호</th>
 		<th style="width:50%">글제목</th>
