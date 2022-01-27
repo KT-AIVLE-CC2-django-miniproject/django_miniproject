@@ -1,11 +1,12 @@
 from audioop import reverse
 from django.forms import NullBooleanField
 from django.shortcuts import render,redirect
-from django.contrib import messages #알람을 위한 임포트
 from sqlalchemy import null
 from .models import User
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from django.contrib import messages
+
 def signup(request):
     if request.method == 'POST':
         id = request.POST.get('id')
@@ -15,7 +16,9 @@ def signup(request):
         mail = request.POST.get('mail')
         m = User(id=id, pw=pw, name=name, birth=birth, mail=mail)
         m.save()
-        return render(request, 'boardapp/home.html')
+
+        return redirect('../../user/login')     
+
     else:
         return render(request, 'userapp/signup.html')
 
@@ -80,22 +83,24 @@ def update(request):
 
 
 def login(request):
+    
     if request.method == 'POST':
         id = request.POST.get('id')
         pw = request.POST.get('pw')
         try:
             m = User.objects.get(id=id, pw=pw)
         except User.DoesNotExist as e:
-            return render(request, 'boardapp/login_fail.html')
+            messages.add_message(request, messages.INFO, '아이디 비밀번호를 확인하세요!')
+            return render(request, 'userapp/login.html')
 
         else:
             request.session['id'] = m.id
             request.session['name'] = m.name
             
-        # return render(request,'boardapp/main.html')
         return redirect('../../board/home')
     else:
-        return render(request, 'boardapp/login.html')
+        return render(request, 'userapp/login.html')
+
 
 def logout(request):
     # del request.session['id'] # 개별 삭제

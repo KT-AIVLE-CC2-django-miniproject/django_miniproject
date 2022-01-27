@@ -36,3 +36,18 @@ class Reply(models.Model):
 
     def __str__(self):
         return self.comment
+
+#########################################################기업별 면접 공유 게시판
+
+class Topic(models.Model):
+    message = models.TextField(max_length=5000,null=True) #content
+    subject = models.CharField(max_length=255) #title
+    last_updated =  models.DateField(auto_now_add=True, null=True)
+    writter = models.ForeignKey("userapp.User", related_name='topics',on_delete=models.CASCADE, null=True)    
+
+class Replys(models.Model):
+    message = models.TextField(max_length=5000)
+    created_at = models.DateTimeField()
+    created_by= models.ForeignKey("userapp.User", null=True, related_name='posts',on_delete=models.CASCADE)
+    updated_at = models.DateField(null = True)
+    updated_by=  models.ForeignKey("userapp.User",null=True,related_name='+',on_delete=models.CASCADE)

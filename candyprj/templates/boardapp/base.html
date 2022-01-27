@@ -47,7 +47,7 @@
         <div class="container-fluid">
             {% comment %} 홈페이지 {% endcomment %}
             {% comment %} <div class='user' style = "text-align:right"> {% endcomment %}
-            <a class="navbar-brand" href='/board/home'>Candy</a> 
+            <a class="navbar-brand" href='/board/main'>Candy</a> 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -57,10 +57,10 @@
                     {% if request.session.id %}
 
                     <li class="nav-item">
-                        <a class="nav-link {% if title == 'main' %} active aria-current='page' {% endif %}" href='/board/main'>스터디 모집</a>
+                        <a class="nav-link {% if title == 'main' %} active aria-current='page' {% endif %}" href='/board/home'>스터디 모집</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if title == 'board' %} active aria-current='page' {% endif %}" href='boardapp/board'>기업별 면접 공유</a>
+                        <a class="nav-link {% if title == 'board' %} active aria-current='page' {% endif %}" href='#'>기업별 면접 공유</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if title == 'mypage' %} active aria-current='page' {% endif %}" href='/user/profile'>마이페이지</a>
