@@ -36,7 +36,7 @@ def update(request):
     new = User.objects.get(id = id)
     if request.method == "POST":
         update.file = request.FILES.get('file') 
-        if update.file =='':
+        if update.file == None:
             update.file = new.file
         else :
             update.file = update.file
