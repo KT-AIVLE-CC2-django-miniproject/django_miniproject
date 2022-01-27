@@ -71,6 +71,7 @@
 					<td>
 						<a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:detail' item.postNum %}" {%else%} href = '#' onclick="alertAccess()" {%endif%} >
 							{{item.title}}
+							{% comment %} 디테일이 안먹히는중  {% endcomment %}
 						</a>
 					</td>
 					<td>
