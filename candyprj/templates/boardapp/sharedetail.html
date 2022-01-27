@@ -1,6 +1,7 @@
 {% extends  'boardapp/sharebase.html' %}
 
 {% block boardhead %}
-    <input type ="text" class ="title" name = "subject" value= "{{ topics.subject }}" readonly/>
+    <input type ="text" class ="title" name = "subject" value= "{{ topics.subject }}" readonly/><br>
     <textarea class ="content" name= "message" readonly>{{topics.message}} </textarea>
+    
 {% endblock %}

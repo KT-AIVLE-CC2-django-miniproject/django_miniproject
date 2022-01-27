@@ -1,6 +1,7 @@
 {% extends 'boardapp/sharebase.html' %}
 
 {% block boardhead %}
+
     <table class="table">
         <thead  class="thead-inverse">
             <tr>
@@ -15,17 +16,17 @@
         <tbody>
             {% for topic in topics %}
             <tr>
-                <td>{{topic.writter}}</td>
+                <td>{{topic.writter_id}}</td>
                 <td><a href="{% url 'boardapp:sharedetail' topicid=topic.id %}">{{ topic.subject }}</a></td>
                 {% comment %} <td>
-                    <a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:sharedetail' topic.id %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
+                    <a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:sharedetail' topic.writter %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
                         {{topic.subject}}
                     </a>
-                </td> {% endcomment %}
+                </td>  {% endcomment %}
 
-                {% comment %} <td>{{topic.subject }}</td> {% endcomment %}
-                {% comment %} <td>0</td>
-                <td>0</td> {% endcomment %}
+                <td>{{topic.subject }}</td>
+                <td>0</td>
+                <td>0</td>
                 <td>{{topic.last_updated}}</td>
             </tr>
             {% endfor %}
