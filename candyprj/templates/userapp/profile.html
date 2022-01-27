@@ -60,7 +60,7 @@
             <div style="text-align: center;">
             <!-- <div style="margin-left: 10px;"> -->
                 {%if request.session.id == profile.id%}
-                <a href="{% url 'userapp:update' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-edit"></i>&nbsp;내정보수정</a>&nbsp;&middot;&nbsp;
+                <a href="{% url 'userapp:update' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-edit"></i>&nbsp;프로필 수정</a>&nbsp;&middot;&nbsp;
                 {%endif%}
                 <a href="{% url 'boardapp:home' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-slash"></i>&nbsp;home</a> <br>
             </div>
@@ -70,76 +70,3 @@
 </div>
 
 {% endblock  %}
-{% comment %} {% block contents %}
-<div class="container">
-    <div style="margin-top: 5rem !important;">
-        <div class="col-12">
-
-            <div class="row justify-content-center">
-                <div class="card">
-                    <div class="card-header" style="padding-bottom:8px;">
-                        <strong style="font-size: 25px;"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;내 정보</strong>
-                    </div>
-                    <div class="card-body">
-                        <table style="color:black; margin-left:10px;">
-                            <tr>
-                                <td class="profile_title">아이디</td>
-                                <td class="profile_content">{{profile.id }}</td>
-                                
-                            </tr>
-                            <tr>
-                                <td class="profile_title">패스워드</td>
-                                <td class="profile_content">{{ profile.pw }}</td>
-                            </tr>
-                            <tr>
-                                <td class="profile_title">이름</td>
-                                <td class="profile_content">{{ profile.name }}</td>
-                            </tr>
-                            <tr>
-                                <td class="profile_title">메일</td>
-                                <td class="profile_content">{{ profile.mail }}</td>
-                            </tr>
-                            
-                        </table>
-    
-                        <hr>
-                        <div style="text-align: center;">
-                        <!-- <div style="margin-left: 10px;"> -->
-                            <a href="{% url 'userapp:update' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-edit"></i>&nbsp;내정보수정</a>&nbsp;&middot;&nbsp;
-                            <a href="{% url 'boardapp:home' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-slash"></i>&nbsp;home</a> <br>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-{% endblock %} {% endcomment %}
-
-
-
-
-{% comment %} <!DOCTYPE html>
-
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-</head>
-<body>
-    <h1>My page</h1>
-
-    <h1>아이디 :{{profile.id}}</h1>
-    <h1>패스워드 : {{profile.pw}}</h1>
-    <h1>이름 :{{profile.name}}</h1>
-    <h1>이메일 : {{profile.mail}}</h1>
-    <h1>신고 : {{profile.reportCnt}}</h1>
-    <h1>생일 :{{profile.birth}}</h1>
-
-    <button id='updateBtn' type="button" onclick="location.href='/user/update/'">수정</button>
-    <button id='updateBtn' type="button" onclick="location.href='/board/home/'">홈으로</button>
-</body>
-</html> {% endcomment %}
