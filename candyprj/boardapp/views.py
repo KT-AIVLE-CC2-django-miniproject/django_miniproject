@@ -56,7 +56,9 @@ def write_board(request): #쓰기 페이지에서 글 등록시 submit 처리
 
     b = Board(id = uid,title=request.POST['title'], content=request.POST['detail'], 
     pub_date=timezone.now()) #recuritment --> 필요없다. 조회할때만 모집중인지 아닌지 버튼으로 ex 좋아요, 싫어요
-    b.save()
+    if b.title != "": #제목이 입력된 경우에만 저장
+        b.save()
+
     return HttpResponseRedirect(reverse('boardapp:home'))
 
 def create_reply(request, postNum): # 상세 페이지에서 댓글 동록시 submit 처리
