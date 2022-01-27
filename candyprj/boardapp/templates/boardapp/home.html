@@ -69,12 +69,12 @@
 				<tr>
 					<td>{{item.postNum}}</td>
 					<td>
-						<a style="color:#000000" {%if request.session.id %} href=" ../../user/profile" {%else%} href = '#' onclick="alertAccess()" {%endif%} >
+						<a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:detail' item.postNum %}" {%else%} href = '#' onclick="alertAccess()" {%endif%} >
 							{{item.title}}
 						</a>
 					</td>
 					<td>
-						<a style="color:#000000" {%if request.session.id %} href=" ../../user/profile" {%else%} href = '#' onclick="alertAccess()" {%endif%} >
+						<a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:detail' item.postNum %}" {%else%} href = '#' onclick="alertAccess()" {%endif%} >
 							{{item.id_id}}
 						</a>
 					</td>
