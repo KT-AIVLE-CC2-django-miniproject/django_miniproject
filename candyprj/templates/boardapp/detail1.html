@@ -13,25 +13,26 @@
 				<tr>
 					<td class="td_title" style="text-align:center; width:20%;">제목</td>
 					<td style="padding:10px;">
-						<input type="text" name="subject" id="subject" value="{{ boardapp.subject }}" readonly/>
+						<span>{{ boardapp1.subject }}</span>
+						{% comment %} <input type="text" name="subject" id="subject" value="{{ boardapp.subject }}" readonly/> {% endcomment %}
 					</td>
 				</tr>
 				<tr>
 					<td class="td_title" style="text-align:center; width:20%;">작성자</td>
 					<td style="padding:10px;">
-						<span>{{ boardapp.writter_id }}</span>
+						<span>{{ boardapp1.writter_id }}</span>
 					</td>
 				</tr>
 				<tr>
 					<td class="td_title" style="text-align:center; width:20%;">작성일자</td>
 					<td style="padding:10px;">
-						<span>{{ boardapp.last_updated }}</span>
+						<span>{{ boardapp1.last_updated }}</span>
 					</td>
 				</tr>
 				<tr>
 					<td class="td_title" style="text-align:center;">내용</td>
 					<td style="padding:10px;">
-						<textarea name="detail1" id="detail1" rows="10" readonly>{{ boardapp.message }}</textarea>
+						<textarea name="detail1" id="detail1" rows="10" readonly>{{ boardapp1.message }}</textarea>
 					</td>
 				</tr>
 			</tbody>
@@ -42,7 +43,7 @@
 		<a href="{% url 'boardapp:update1' boardapp.id %}">수정</a>
 		<a href="{% url 'boardapp:delete1' boardapp.id %}">삭제</a>
 
-		<form action="{% url 'boardapp:create1_reply' boardapp.id %}" method="post">
+		<form action="{% url 'boardapp:create1_reply' boardapp1.id %}" method="post">
 		{% csrf_token %}
 		<table class="board_for_read">
 			<tbody>
@@ -60,7 +61,7 @@
 		</form>
 
 		<div class="reply1_content">
-			{% for rep in boardapp.reply1_set.all %}
+			{% for rep in boardapp1.reply1_set.all %}
 				<span class="reply">{{ rep.message }} [{{ rep.last_updated|date:'Y-m-d H:i'}}]</span>
 			{% endfor %}
 		</div>

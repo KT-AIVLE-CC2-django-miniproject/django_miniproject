@@ -146,8 +146,8 @@ def new_topic(request):
 
 
 def detail1(request, id): #게시글 제목 선택시 상세 페이지로 이동
-    board = Topic.objects.get(id=id)
-    return render(request, 'boardapp/detail1.html', {'boardapp': board})
+    board1 = Topic.objects.get(id=id)
+    return render(request, 'boardapp/detail1.html', {'boardapp1': board1})
 
 # def detail(request, postNum): #게시글 제목 선택시 상세 페이지로 이동
 #     board = Board.objects.get(postNum=postNum)
@@ -170,9 +170,9 @@ def create1_reply(request, id): # 상세 페이지에서 댓글 동록시 submit
 #     return HttpResponseRedirect(reverse('boardapp:detail', args=(postNum,)))  
 
 
-def update1(request, board_id):
-    b = Topic.objects.get(id= board_id)
-    temp = Topic.objects.get(id= board_id)
+def update1(request, board_id1):
+    b = Topic.objects.get(id= board_id1)
+    temp = Topic.objects.get(id= board_id1)
     if request.method == "POST":
         b.subject=request.POST['subject']
         if b.subject == "":
@@ -182,10 +182,10 @@ def update1(request, board_id):
             b.message = temp.message
         b.last_updated=timezone.now()
         b.save()
-        return HttpResponseRedirect(reverse('boardapp:detail1',args=(board_id,)))
+        return HttpResponseRedirect(reverse('boardapp:detail1',args=(board_id1,)))
     else:
         b=Topic
-        return render(request, 'boardapp/update1.html', {'boardapp':b})
+        return render(request, 'boardapp/update1.html', {'boardapp1':b})
 
 # def update(request, board_id):
 #     b = Board.objects.get(postNum= board_id)
@@ -205,8 +205,8 @@ def update1(request, board_id):
 #         return render(request, 'boardapp/update.html', {'boardapp':b})
 
 
-def delete1(request, board_id):
-    b = Topic.objects.get(id=board_id)
+def delete1(request, board_id1):
+    b = Topic.objects.get(id=board_id1)
     b.delete()
     return redirect('boardapp:share')
 
