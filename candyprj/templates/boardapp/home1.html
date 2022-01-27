@@ -1,5 +1,5 @@
 {% extends 'boardapp/base.html' %}
-{% load board_filter %}
+
 {% block title %}Index page{% endblock %}
 
 {% block content %}
@@ -14,43 +14,39 @@
         <tr class="thead-dark">
             <th>번호</th>
             <th>제목</th>
-			<th>작성자</th>
             <th>작성일시</th>
         </tr>
         </thead>
         <tbody>
-        {% if not board %}
-		<tr>
-			<td colspan='4' style="text-align:center">
-				게시물이 없습니다.
-
-			</td>
-		</tr>
-		{%else%}
-        {%for item in board %}
-				<tr>
-					<td>{{item.postNum}}</td>
-					<td>
-						<a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:detail' item.postNum %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
-							{{item.title}}
-						</a>
-					</td>
-					<td>
-						<a style="color:#000000" {%if request.session.id %} href="{% url 'userapp:userinfo' item.id_id %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
-							{{item.id_id}}
-						</a>
-					</td>
-					<td>{{item.pub_date}}</td>
-				</tr>
-		{%endfor%}
+        {% if board_list %}
+        {% for question in board_list %}
+        <tr>
+            <td>
+                <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
+                {{ board_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
+            </td>
+            {% comment %} <td>{{ forloop.counter }}</td> {% endcomment %}
+            <td>
+                <a href="{% url 'boardapp:detail' question.postNum %}">{{ question.title }}</a>
+                {% if question.answer_set.count > 0 %}
+                <span class="text-danger small ml-2">{{ question.answer_set.count }}</span>
+                {% endif %}
+            </td>
+            <td>{{ question.pub_date }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">질문이 없습니다.</td>
+        </tr>
         {% endif %}
         </tbody>
     </table>
     <ul class="pagination justify-content-center">
         <!-- 이전페이지 -->
-        {% if board.has_previous %}
+        {% if board_list.has_previous %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ board.previous_page_number }}">이전</a>
+            <a class="page-link" href="?page={{ board_list.previous_page_number }}">이전</a>
         </li>
         {% else %}
         <li class="page-item disabled">
@@ -59,9 +55,9 @@
         {% endif %}
         <!-- 페이지리스트 -->
         
-        {% for page_number in board.paginator.page_range %}
-        {% if page_number >= board.number|add:-5 and page_number <= board.number|add:5 %}    
-            {% if page_number == board.number %}
+        {% for page_number in board_list.paginator.page_range %}
+        {% if page_number >= board_list.number|add:-5 and page_number <= board_list.number|add:5 %}    
+            {% if page_number == board_list.number %}
             <li class="page-item active" aria-current="page">
                 <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
             </li>
@@ -73,9 +69,9 @@
         {% endif %}
         {% endfor %}
         <!-- 다음페이지 -->
-        {% if board.has_next %}
+        {% if question_list.has_next %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ board.next_page_number }}">다음</a>
+            <a class="page-link" href="?page={{ board_list.next_page_number }}">다음</a>
         </li>
         {% else %}
         <li class="page-item disabled">

@@ -16,10 +16,11 @@ from .models import Board
 #     return render(request, 'boardapp/index.html', {'title':'data'})
 
 def home(request):
-    all_boards = Board.objects.all().order_by('-pub_date')
+    all_boards = Board.objects.order_by('-pub_date')
     paginator = Paginator(all_boards, 10)
     page = int(request.GET.get('page',1))
     board_list = paginator.get_page(page)
+    context={'all_boards':board_list}
 
     return render(request, 'boardapp/home.html', {'board': board_list})
 
