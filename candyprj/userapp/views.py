@@ -1,7 +1,6 @@
 from audioop import reverse
 from django.forms import NullBooleanField
 from django.shortcuts import render,redirect
-from django.contrib import messages #알람을 위한 임포트
 from sqlalchemy import null
 from .models import User
 from django.http import HttpResponse
