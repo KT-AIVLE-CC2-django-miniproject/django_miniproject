@@ -69,7 +69,7 @@
 				<tr>
 					<td>{{item.postNum}}</td>
 					<td>
-						<a style="color:#000000" {%if request.session.id %} href=" ../../user/profile" {%else%} href = '#' onclick="alertAccess()" {%endif%} >
+						<a style="color:#000000" {%if request.session.id %} href=" ../../user/profile" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
 							{{item.title}}
 						</a>
 					</td>
