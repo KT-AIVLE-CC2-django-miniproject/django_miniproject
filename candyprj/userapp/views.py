@@ -1,6 +1,7 @@
 from audioop import reverse
 from django.forms import NullBooleanField
 from django.shortcuts import render,redirect
+from numpy import empty
 from sqlalchemy import null
 from .models import User
 from django.http import HttpResponse
@@ -35,16 +36,13 @@ def update(request):
     update = User.objects.get(id = id)
     new = User.objects.get(id = id)
     if request.method == "POST":
+
         update.file = request.FILES.get('file') 
-        if update.file =='':
+        if update.file == None:
             update.file = new.file
         else :
             update.file = update.file
-        # if update.flie =='':
-        #     update.file = new.file
-        # else :
-        #     update.file = update.file
-
+        
         update.pw = request.POST.get('pw')
         if update.pw =='':
             update.pw = new.pw
@@ -62,6 +60,7 @@ def update(request):
             update.birth = new.birth
         else :
             update.birth = update.birth
+
         update.mail = request.POST.get('mail')
         if update.mail =='':
             update.mail = new.mail
