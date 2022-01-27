@@ -56,7 +56,9 @@ def write_board(request): #쓰기 페이지에서 글 등록시 submit 처리
 
     b = Board(id = uid,title=request.POST['title'], content=request.POST['detail'], 
     pub_date=timezone.now()) #recuritment --> 필요없다. 조회할때만 모집중인지 아닌지 버튼으로 ex 좋아요, 싫어요
-    b.save()
+    if b.title != "": #제목이 입력된 경우에만 저장
+        b.save()
+
     return HttpResponseRedirect(reverse('boardapp:home'))
 
 def create_reply(request, postNum): # 상세 페이지에서 댓글 동록시 submit 처리
@@ -103,3 +105,42 @@ def search(request):
             searchBoard = Board.objects.all().order_by('-postNum')[:5]
 
     return render(request, 'boardapp/home.html', {'board':searchBoard})
+
+
+######################################################################기업별 면접공유 함수
+from .models import Topic, Replys
+from django.http import HttpResponse
+
+def share(request):
+    topics = Topic.objects.all()
+    return render(request,'boardapp/share.html',{'topics':topics})
+    #share html을 렌더링하고 topics 개체 반환
+
+def new_topic(request):
+
+    topics = Topic.objects.all()
+         
+        # user = User.objects.first()
+    uid = request.session['id']
+    uid = User.objects.get(id = uid)
+    user = Topic(writter = uid) 
+        # user.save()
+    # topics = Topic.objects.create(
+    #     subject=subject,
+    #     message=message,
+    #     id=user
+    #     )
+    topics = Topic(writter = user, subject =request.POST['subject'], message =request.POST['message']) 
+    topics.save()
+
+    # posts = Replys.objects.create(
+    #     created_at = timezone.now(),
+    #     message=message,
+    #     created_by=user,
+    #     updated_by=user,
+    #     updated_at = timezone.now()
+    # )
+
+        # return redirect('boardapp:share')
+  
+    return render(request,'boardapp/new_topic.html',{'topics':topics})
