@@ -50,7 +50,7 @@ def write_board(request): #쓰기 페이지에서 글 등록시 submit 처리
     b = Board(id = uid,title=request.POST['title'], content=request.POST['detail'], 
     pub_date=timezone.now()) #recuritment --> 필요없다. 조회할때만 모집중인지 아닌지 버튼으로 ex 좋아요, 싫어요
     b.save()
-    return HttpResponseRedirect(reverse('boardapp:index'))
+    return HttpResponseRedirect(reverse('boardapp:home'))
 
 def create_reply(request, postNum): # 상세 페이지에서 댓글 동록시 submit 처리
     b = Board.objects.get(postNum = postNum)
@@ -76,7 +76,7 @@ def update(request, postNum):
 def delete(request, postNum):
     b = Board.objects.get(id=postNum)
     b.delete()
-    return redirect('board:index')
+    return redirect('board:home')
 
 def search(request):
     search = request.GET.get('search')
