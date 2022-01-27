@@ -56,8 +56,11 @@ def write_board(request): #쓰기 페이지에서 글 등록시 submit 처리
     return HttpResponseRedirect(reverse('boardapp:home'))
 
 def create_reply(request, postNum): # 상세 페이지에서 댓글 동록시 submit 처리
+    uid = request.session['id']
+    uid = User.objects.get(id=uid)
+
     b = Board.objects.get(postNum = postNum)
-    b.reply_set.create(comment=request.POST['comment'], rep_date=timezone.now())
+    b.reply_set.create(id = uid, comment=request.POST['comment'], rep_date=timezone.now())
     return HttpResponseRedirect(reverse('boardapp:detail', args=(postNum,)))  
 
 def main(request):
