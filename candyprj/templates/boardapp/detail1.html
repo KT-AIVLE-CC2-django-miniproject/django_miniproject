@@ -1,0 +1,68 @@
+<{% extends 'boardapp/sharebase.html' %}
+
+    {% block boardhead %}
+
+		<table class="board_for_read">
+			<tbody>
+				<tr>
+					<td class="td_title" style="text-align:center; width:20%;">글번호</td>
+					<td style="padding:10px;">
+						<span>{{ boardapp.postNum }}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_title" style="text-align:center; width:20%;">제목</td>
+					<td style="padding:10px;">
+						<input type="text" name="title" id="title" value="{{ boardapp.title }}" readonly/>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_title" style="text-align:center; width:20%;">작성자</td>
+					<td style="padding:10px;">
+						<span>{{ boardapp.id_id }}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_title" style="text-align:center; width:20%;">작성일자</td>
+					<td style="padding:10px;">
+						<span>{{ boardapp.pub_date }}</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_title" style="text-align:center;">내용</td>
+					<td style="padding:10px;">
+						<textarea name="detail" id="detail" rows="10" readonly>{{ boardapp.content }}</textarea>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div style="text-align:left;">
+			<a href="{% url 'boardapp:home' %}">> Home</a>
+		</div>
+		<a href="{% url 'boardapp:update' boardapp.postNum %}">수정</a>
+		<a href="{% url 'boardapp:delete' boardapp.postNum %}">삭제</a>
+
+		<form action="{% url 'boardapp:create_reply' boardapp.postNum %}" method="post">
+		{% csrf_token %}
+		<table class="board_for_read">
+			<tbody>
+				<tr>
+					<td colspan="2" class="td_title" style="text-align:left; padding-left:10px; height:30px;">leave a comment</td>
+				</tr>
+				<tr>
+					<td style="text-align:center;">
+						<input type="text" name="comment" id="comment" style="width:100%">
+					</td>
+					<td><input type="submit" value="save"></td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+
+		<div class="reply_content">
+			{% for rep in boardapp.reply_set.all %}
+				<span class="reply">{{ rep.comment }} [{{ rep.rep_date|date:'Y-m-d H:i'}}]</span>
+			{% endfor %}
+		</div>
+
+    {% endblock %}
