@@ -69,13 +69,13 @@
 				<tr>
 					<td>{{item.postNum}}</td>
 					<td>
-						<a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:detail' item.postNum %}" {%else%} href = '#' onclick="alertAccess()" {%endif%} >
+						<a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:detail' item.postNum %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
 							{{item.title}}
 							{% comment %} 디테일이 안먹히는중  {% endcomment %}
 						</a>
 					</td>
 					<td>
-						<a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:detail' item.postNum %}" {%else%} href = '#' onclick="alertAccess()" {%endif%} >
+						<a style="color:#000000" {%if request.session.id %} href="{% url 'userapp:userinfo' item.id_id %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
 							{{item.id_id}}
 						</a>
 					</td>
