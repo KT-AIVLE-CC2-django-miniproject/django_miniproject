@@ -12,18 +12,27 @@
 		font-family: none;
 	} 
 </style>
-<h2>로그인</h2>
-<form method="post" >
-    {% csrf_token %}
-    아이디 : <input type="text" name="id"><br>
-    비밀번호 : <input type="text" name="pw"><br>
-    <input type="submit" value="로그인">
-    로그인에 실패하셨습니다. 아이디 비밀번호를 확인하세요
+<div class="container">
+	<div class="row mt-5">
+		<div class="col-8" text-center>
+			<h2>로그인</h2>
+		</div>
+	</div>
+	<div class="row mt-5">
+		<div class="col-8">
+			<form method="post" >
+				{% csrf_token %}
+				아이디 : <input type="text" class="form-control" name="id"><br>
+				비밀번호 : <input type="text" class="form-control" name="pw"><br>
+				<h2>아이디 비밀번호를 확인하세요!</h2>  
+				<input type="submit" class="form-control" value="로그인">
+				
+			</form>
+			<button id = 'signupBtn' class="form-control" onclick="location.href='/user/signup'">회원가입</button>
+		</div>
+	</div>
+	
+</div>
 
-</form>
-
-
-
-<button id = 'signupBtn' onclick="location.href='/user/signup'">회원가입</button>
 
 {% endblock  %}
