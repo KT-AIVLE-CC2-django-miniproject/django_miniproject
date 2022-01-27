@@ -1,0 +1,46 @@
+{% extends  'boardapp/sharebase.html' %}
+
+{% block title %} writting {% endblock %}
+
+
+{% block content %}
+    
+    <form action="{% url 'boardapp:new_topic' %}"{method ="post">
+        {% csrf_token %}
+       
+        <!-- writting title -->
+        <div class="form-group">
+            <label for="id_subject"> 제목 </label>
+            <input type="text" class="form-control" id="id_subject" name="subject">
+        </div>
+
+        <div class="form-group">
+            <lable for="id_message">내용</lable>
+            <textarea class="form-control" id="id_message" name="message" rows="5"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">게시</button>
+
+        {% comment %} <div style="text-align:right;padding: 5px;">
+			<input type="submit" value="저장">
+		</div>
+
+		<table class="board_for_read">
+			<tbody>
+				<tr>
+					<td class="td_title" style="text-align:center; width:20%;">제목</td>
+					<td style="padding:10px;">
+						<input type="text" name="subject" id="subject" value="{{ topics.subject }}"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_title" style="text-align:center;">내용</td>
+					<td style="padding:10px;">
+						<textarea name="message" id="message" rows="10">{{ topic.message }}</textarea>
+					</td>
+				</tr>
+			</tbody>
+		</table> {% endcomment %}
+
+
+</form>
+{% endblock %}

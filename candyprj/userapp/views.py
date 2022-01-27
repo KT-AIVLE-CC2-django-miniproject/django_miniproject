@@ -16,8 +16,9 @@ def signup(request):
         mail = request.POST.get('mail')
         m = User(id=id, pw=pw, name=name, birth=birth, mail=mail)
         m.save()
-        # return render(request, 'userapp/login.html')
-        return redirect('../../user/login')
+
+        return redirect('../../user/login')     
+
     else:
         return render(request, 'userapp/signup.html')
 

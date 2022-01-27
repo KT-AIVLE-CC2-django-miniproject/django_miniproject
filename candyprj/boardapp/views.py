@@ -105,3 +105,42 @@ def search(request):
             searchBoard = Board.objects.all().order_by('-postNum')[:5]
 
     return render(request, 'boardapp/home.html', {'board':searchBoard})
+
+
+######################################################################기업별 면접공유 함수
+from .models import Topic, Replys
+from django.http import HttpResponse
+
+def share(request):
+    topics = Topic.objects.all()
+    return render(request,'boardapp/share.html',{'topics':topics})
+    #share html을 렌더링하고 topics 개체 반환
+
+def new_topic(request):
+
+    topics = Topic.objects.all()
+         
+        # user = User.objects.first()
+    uid = request.session['id']
+    uid = User.objects.get(id = uid)
+    user = Topic(writter = uid) 
+        # user.save()
+    # topics = Topic.objects.create(
+    #     subject=subject,
+    #     message=message,
+    #     id=user
+    #     )
+    topics = Topic(writter = user, subject =request.POST['subject'], message =request.POST['message']) 
+    topics.save()
+
+    # posts = Replys.objects.create(
+    #     created_at = timezone.now(),
+    #     message=message,
+    #     created_by=user,
+    #     updated_by=user,
+    #     updated_at = timezone.now()
+    # )
+
+        # return redirect('boardapp:share')
+  
+    return render(request,'boardapp/new_topic.html',{'topics':topics})
