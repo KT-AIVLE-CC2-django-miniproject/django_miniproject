@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from matplotlib.pyplot import title
 from userapp.models import User
 
-from .models import Board
+from .models import Board, Topic
 
 # from userapp.views import ss
 
@@ -118,7 +118,7 @@ def share(request):
 
 def new_topic(request):
 
-    topics = Topic.objects.all()
+    # topics = Topic.objects.all()
          
         # user = User.objects.first()
     uid = request.session['id']
@@ -130,7 +130,7 @@ def new_topic(request):
     #     message=message,
     #     id=user
     #     )
-    topics = Topic(writter = user, subject =request.POST['subject'], message =request.POST['message']) 
+    topics = Topic(writter = user, subject =request.POST['subject'], message =request.POST['message'], last_updated=timezone.now()) 
     topics.save()
 
     # posts = Replys.objects.create(
