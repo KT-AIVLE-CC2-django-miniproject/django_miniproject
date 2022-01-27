@@ -13,13 +13,13 @@
                         <td class="td_title" style="text-align:center; width:20%;">제목</td>
                         
                         <td style="padding:10px;">
-                            <input type="text" name="title" id="title" value="{{ boardapp.title }}"/>
+                            <input type="text" name="subject" id="subject" value="{{ boardapp.subject }}"/>
                         </td>
                     </tr>
                     <tr>
                         <td class="td_title" style="text-align:center;">내용</td>
                         <td style="padding:10px;">
-                            <textarea name="detail" id="detail" rows="10">{{ board.content }}</textarea>
+                            <textarea name="detail1" id="detail1" rows="10">{{ board.message }}</textarea>
                         </td>
                     </tr>
                 </tbody>
@@ -27,7 +27,7 @@
             </form>
     
             <div style="text-align:left;">
-                <a href="{% url 'boardapp:home' %}">> Home</a>
+                <a href="{% url 'boardapp:share' %}">> Share</a>
             </div>
 
 {% endblock %}
