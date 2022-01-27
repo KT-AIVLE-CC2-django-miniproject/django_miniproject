@@ -7,7 +7,7 @@
 				<tr>
 					<td class="td_title" style="text-align:center; width:20%;">글번호</td>
 					<td style="padding:10px;">
-						<span>{{ boardapp.writter }}</span>
+						<span>{{ boardapp.id }}</span>
 					</td>
 				</tr>
 				<tr>
@@ -39,10 +39,10 @@
 		<div style="text-align:left;">
 			<a href="{% url 'boardapp:share' %}">> Share</a>
 		</div>
-		<a href="{% url 'boardapp:update1' boardapp.writter %}">수정</a>
-		<a href="{% url 'boardapp:delete1' boardapp.writter %}">삭제</a>
+		<a href="{% url 'boardapp:update1' boardapp.id %}">수정</a>
+		<a href="{% url 'boardapp:delete1' boardapp.id %}">삭제</a>
 
-		<form action="{% url 'boardapp:create1_reply' boardapp.writter %}" method="post">
+		<form action="{% url 'boardapp:create1_reply' boardapp.id %}" method="post">
 		{% csrf_token %}
 		<table class="board_for_read">
 			<tbody>
