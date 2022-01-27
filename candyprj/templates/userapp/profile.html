@@ -1,10 +1,23 @@
+{% extends 'boardapp/base.html' %}
 
+{% block title %}Index page{% endblock %}
+
+{% block content %}
+<style>
+	.card {
+		padding: 10px;		
+	}
+
+	.card h3 {
+		font-family: none;
+	} 
+</style>
+<h2>마이페이지</h2>
 {% load static %}
 
 {% block head_title %}{{ profile.name }} | Mypage {% endblock head_title %}
-<br>
-</br>
-{% block content %}
+
+
 <style>
 .round {
     border-radius: 50%;
@@ -14,12 +27,15 @@
   <div class="row">
     <div class="card col-lg-6 offset-lg-3 mb-3">
       <div class="row" >
-        
-        <img class="round" src="{%static 'image/profile.jpg'%}" width="200" > <br>
+        {% if profile.file == "" %}
+        <img class="round" src="{%static 'image/profile.jpg'%}" width="200" >
+        {% else %}
+        <img class="round" src="{{ profile.file.url }}" width="200" height='200' >
+        {% endif %}
         
 
         <div class="card-body" >
-            <table style="color:black; margin-left:50px;">
+            <table style="color:black; margin-left:10px;">
                 <tr>
                     <td class="profile_title">아이디</td>
                     <td class="profile_content"> : {{profile.id }}</td>
@@ -43,15 +59,17 @@
             <hr>
             <div style="text-align: center;">
             <!-- <div style="margin-left: 10px;"> -->
+                {%if request.session.id == profile.id%}
                 <a href="{% url 'userapp:update' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-edit"></i>&nbsp;내정보수정</a>&nbsp;&middot;&nbsp;
+                {%endif%}
                 <a href="{% url 'boardapp:home' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-slash"></i>&nbsp;home</a> <br>
             </div>
       </div>
     </div>
   </div>
 </div>
-{% endblock %}
 
+{% endblock  %}
 {% comment %} {% block contents %}
 <div class="container">
     <div style="margin-top: 5rem !important;">

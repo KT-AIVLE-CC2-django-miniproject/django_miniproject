@@ -41,7 +41,7 @@
     </style>
 <body>
     <div class="content">
-		<form action="{% url 'boardapp:write_board' %}" method="post">
+		<form method="post">
 		{% csrf_token %}
 
 		<div style="text-align:right;padding: 5px;">
@@ -52,8 +52,9 @@
 			<tbody>
 				<tr>
 					<td class="td_title" style="text-align:center; width:20%;">제목</td>
+                    
 					<td style="padding:10px;">
-						<input type="text" name="title" id="title" value="{{ board.title }}"/>
+						<input type="text" name="title" id="title" value="{{ boardapp.title }}"/>
 					</td>
 				</tr>
 				<tr>
@@ -67,7 +68,7 @@
 		</form>
 
 		<div style="text-align:left;">
-			<a href="{% url 'boardapp:index' %}">> Home</a>
+			<a href="{% url 'boardapp:home' %}">> Home</a>
 		</div>
 
     </div>

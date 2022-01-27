@@ -19,9 +19,6 @@ def signup(request):
     else:
         return render(request, 'boardapp/signup.html')
 
-# def profile(request):
-#     profile = User.objects.get(id = 'abc')
-#     return render(request, 'userapp/profile.html',{'profile':profile})
 
 def profile(request):
     # profile = User.objects.get(id = 'abc')
@@ -31,16 +28,20 @@ def profile(request):
 
 
 def update(request):
-    # update = User.objects.get(id = 'abc')
     id = request.session.get('id')
     update = User.objects.get(id = id)
     new = User.objects.get(id = id)
     if request.method == "POST":
-        
-        # update.pw = request.POST.get('pw')
-        # update.name = request.POST.get('name')
-        # update.birth = request.POST.get('birth')
-        # update.mail = request.POST.get('mail')
+        update.file = request.FILES.get('file') 
+        if update.file =='':
+            update.file = new.file
+        else :
+            update.file = update.file
+        # if update.flie =='':
+        #     update.file = new.file
+        # else :
+        #     update.file = update.file
+
         update.pw = request.POST.get('pw')
         if update.pw =='':
             update.pw = new.pw
@@ -67,15 +68,19 @@ def update(request):
        
         update.save()
 
-        # if update.pw !="" and update.name !="" and update.birth !="" and update.mail !="":
-        #     update.save()                 //모든 값이 입력됐을 경우만 db에 저장
-        # print(result)
-        # return HttpResponseRedirect(reverse('profile'))
+
         return render(request, 'userapp/new_profile.html')
 
     else:
         return render(request, 'userapp/update.html', {'update':update,'new':new})
 
+# def img_show(request):
+#     id = request.session.get('id')
+#     image = User.objects.get(id = id)
+#     uploadFile = image.objects.get(id=id)
+#     return render(
+#         request, 'userapp/profile.html',
+#         {'uploadFile': uploadFile})
 
 
 def login(request):
@@ -110,3 +115,7 @@ def logout(request):
 #     profile = User.objects.get(id = id)
 #     return render(request, 'userapp/profile.html',{'profile':profile})
 
+def userinfo(request, id):
+    user = User.objects.get(id=id)
+
+    return render(request, 'userapp/profile.html',{'profile':user})

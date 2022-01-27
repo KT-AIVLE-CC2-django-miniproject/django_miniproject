@@ -1,3 +1,18 @@
+{% extends 'boardapp/base.html' %}
+
+{% block title %}Index page{% endblock %}
+
+{% block content %}
+<style>
+	.card {
+		padding: 10px;		
+	}
+
+	.card h3 {
+		font-family: none;
+	} 
+</style>
+<h2>마이페이지</h2>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,3 +30,4 @@
     <button id='updateBtn' type="button" onclick="location.href='/board/home/'">홈으로</button>
 </body>
 </html>
+{% endblock  %}

@@ -1,0 +1,44 @@
+{% extends 'boardapp/base.html' %}
+
+{% block title %}Index page{% endblock %}
+
+{% block content %}
+<style>
+	.card {
+		padding: 10px;		
+	}
+
+	.card h3 {
+		font-family: none;
+	} 
+</style>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-8" text-center>
+            <h2>회원가입</h2>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-8">
+            <form method="post" action="{% url 'userapp:login' %}">
+                {% csrf_token %}
+                아이디 : <input type="text" class="form-control" name="id"><br><br>
+                비밀번호 : <input type="text" class="form-control" name="pw"><br><br>
+                이름 : <input type="text" class="form-control" name="name"><br><br>
+                생일 : <input type="text" class="form-control" name="birth"><br><br>
+                메일 : <input type="text" class="form-control" name="mail"><br><br>
+                <button id='signupBtn' class="from-control" onclick="signup()"  >회원가입</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function signup(){
+        alert("회원가입되었습니다.")
+    }
+</script>
+
+{% endblock  %}

@@ -1,6 +1,25 @@
-<form method="post">
+{% extends 'boardapp/base.html' %}
+
+{% block title %}Index page{% endblock %}
+
+{% block content %}
+<style>
+	.card {
+		padding: 10px;		
+	}
+
+	.card h3 {
+		font-family: none;
+	} 
+</style>
+<h2>마이페이지</h2>
+<form action="{% url 'userapp:update' %}" method="post"
+enctype="multipart/form-data">
+
     {% csrf_token %}
     <h1> 아이디 : {{update.id}}</h1>
+    <h1> 프로필 이미지 : </h1>
+    <input type="file" name="file">
     <h1>현재 비밀번호 : {{update.pw}}</h1>
     비밀번호 : <input type="text" name="pw"><br>
     <h1>현재 이름 :{{update.name}}</h1>
@@ -14,3 +33,4 @@
 </form>
 
 <button id='updateBtn' type="button" onclick="location.href='/user/profile/'">취소</button>
+{% endblock  %}

@@ -1,0 +1,108 @@
+{% extends 'boardapp/base.html' %}
+
+{% block title %}Index page{% endblock %}
+
+{% block content %}
+<style>
+	.card {
+		padding: 10px;		
+	}
+
+	.card h3 {
+		font-family: none;
+	}
+
+	table{
+		table-layout: fixed;
+		width: 100%;
+		min-width: 530px;
+	}
+
+	td {
+		
+		text-overflow:ellipsis; 
+		overflow:hidden;
+		white-space: nowrap;
+	}
+</style>
+<div style="display:flex;">
+	<div class="card" style="width:33%;">
+		<h3>Django</h3>
+		Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
+	</div>
+
+	<div class="card" style="width:33%;">
+		<h3>Django</h3>
+		Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
+	</div>
+
+	<div class="card" style="width:33%;">
+		<h3>Django</h3>
+		Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
+	</div>
+</div> 
+
+<div class='search' style="float:right; margin:10px;">
+	<input id='searchText' type='text' placeholder='Search'>
+	<button id='searchBtn' type='submit'> 검색 </button>
+</div>
+<div class='study'  style="float:left; margin:10px;">
+	<table border='1'>
+
+		<caption style = 'text-align:left; caption-side:top'>스터디 모집</caption>
+		<thead>
+		<th style="width:10%">글번호</th>
+		<th style="width:50%">글제목</th>
+		<th style="width:20%">작성자</th>
+		<th style="width:20%">작성일</th>
+		</thead>
+		<tbody>
+		{%if not board%}
+			<tr>
+				<td colspan='4' style="text-align:center">
+					게시물이 없습니다.
+
+				</td>
+			</tr>
+			{%else%}
+				{%for item in board %}
+				<tr>
+					<td>{{item.postNum}}</td>
+					<td>
+						<a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:detail' item.postNum %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
+							{{item.title}}
+						</a>
+					</td>
+					<td>
+						<a style="color:#000000" {%if request.session.id %} href="{% url 'userapp:userinfo' item.id_id %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
+							{{item.id_id}}
+						</a>
+					</td>
+					<td>{{item.pub_date}}</td>
+				</tr>
+				{%endfor%}
+			{%endif%}
+		</tbody>
+	</table>
+</div>
+
+<script>
+    function showDropdown() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+    function alertAccess() {
+        alert("로그인 후 이용 가능합니다.")
+    }
+	function alertAccess1() {
+        alert("작성자가 아닙니다!!")
+    }
+
+    document.getElementById("searchBtn").addEventListener("click", () => {
+        text = document.getElementById('searchText').value
+
+        location.href='/board/search/?search=' + text;
+      });
+</script>
+
+{% endblock  %}
+

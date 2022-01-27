@@ -1,0 +1,38 @@
+{% extends 'boardapp/base.html' %}
+
+{% block title %}Index page{% endblock %}
+
+{% block content %}
+<style>
+	.card {
+		padding: 10px;		
+	}
+
+	.card h3 {
+		font-family: none;
+	} 
+</style>
+<div class="container">
+	<div class="row mt-5">
+		<div class="col-8" text-center>
+			<h2>로그인</h2>
+		</div>
+	</div>
+	<div class="row mt-5">
+		<div class="col-8">
+			<form method="post" >
+				{% csrf_token %}
+				아이디 : <input type="text" class="form-control" name="id"><br>
+				비밀번호 : <input type="text" class="form-control" name="pw"><br>
+				<input type="submit" class="form-control" value="로그인">  
+			</form>
+			<button id = 'signupBtn' class="form-control" onclick="location.href='/user/signup'">회원가입</button>
+		</div>
+	</div>
+	
+</div>
+
+
+{% endblock  %}
+
+
