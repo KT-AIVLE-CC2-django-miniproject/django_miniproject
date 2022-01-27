@@ -84,7 +84,40 @@
 			{%endif%}
 		</tbody>
 	</table>
+	<!-- Pagination -->
+	<div style="text-align:center">
+		<div class="pagination">
+		
+			<div style="width:35%; margin: 5px;">
+			{% if board.has_previous %}
+				<a class="abutton" href="?page=1">맨 앞으로</a>
+				<a class="abutton" href="?page={{ board.previous_page_number }}">이전</a>
+			{% endif %}
+			</div>
+
+			<div style="width:30%; margin: 5px;">
+			{% for page in board.paginator.page_range %}
+				{% if page >= board.number|add:-2 and page <= board.number|add:2 %}
+				<span class="{% if page == board.number %}current{% endif %}">
+					<a href="?page={{ page }}">{{ page}}</a>
+				</span>
+				{% elif page >= board.number|add:-3 and page <= board.number|add:3 %}
+					..
+				{% endif %}
+			{% endfor %}
+			</div>
+
+			<div style="width:35%; margin: 5px;">
+			{% if board_list.has_next %}
+				<a class="abutton" href="?page={{ board_list.next_page_number }}">다음</a>
+				<a class="abutton" href="?page={{ board_list.paginator.num_pages }}">맨 뒤로</a>
+			{% endif %}
+			</div>
+
+		</div>  
+	</div>
 </div>
+
 
 <script>
     function showDropdown() {

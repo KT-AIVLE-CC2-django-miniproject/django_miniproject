@@ -16,8 +16,14 @@ from .models import Board
 #     return render(request, 'boardapp/index.html', {'title':'data'})
 
 def home(request):
-    board = Board.objects.all().order_by('-postNum')[:5]
-    return render(request, 'boardapp/home.html', {'title':'home', 'board':board})
+    all_boards = Board.objects.all().order_by('-pub_date')
+    paginator = Paginator(all_boards, 10)
+    page = int(request.GET.get('page',1))
+    board_list = paginator.get_page(page)
+
+    return render(request, 'boardapp/home.html', {'board': board_list})
+
+
 
 def board(request):
     return render(request, 'boardapp/board.html', {'title':'board'})  
