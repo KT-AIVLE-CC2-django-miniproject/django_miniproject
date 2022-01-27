@@ -14,7 +14,7 @@ def signup(request):
         mail = request.POST.get('mail')
         m = User(id=id, pw=pw, name=name, birth=birth, mail=mail)
         m.save()
-        return render(request, 'boardapp/home.html')
+        return render(request, 'boardapp/login.html')
     else:
         return render(request, 'userapp/signup.html')
 
