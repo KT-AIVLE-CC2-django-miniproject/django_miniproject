@@ -94,8 +94,10 @@
 		<div style="text-align:left;">
 			<a href="{% url 'boardapp:home' %}">> Home</a>
 		</div>
+		{%if request.session.id == boardapp.id_id%}
 		<a href="{% url 'boardapp:update' boardapp.postNum %}">수정</a>
 		<a href="{% url 'boardapp:delete' boardapp.postNum %}">삭제</a>
+		{%endif%}
 
 		<form action="{% url 'boardapp:create_reply' boardapp.postNum %}" method="post">
 		{% csrf_token %}
