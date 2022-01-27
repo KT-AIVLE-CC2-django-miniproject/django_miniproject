@@ -12,6 +12,81 @@
 		font-family: none;
 	} 
 </style>
+<h2>마이페이지</h2>
+<HR ALIGN= WIDTH= SIZE=>
+{% load static %}
+
+{% block head_title %}<font size = "5">프로필 수정</font> {% endblock head_title %}
+
+
+<style>
+.round {
+    border-radius: 50%;
+}
+</style>
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="card col-lg-4 offset-lg-4 mb-3">
+      <div class="row" >
+
+        
+
+        <div class="card-body" >
+            <table style="color:black; margin-left:10px;">
+                <form action="{% url 'userapp:update' %}" method="post"
+                enctype="multipart/form-data">
+                    
+                    {% csrf_token %}
+                    <tr>
+                    <tb><font size = "6"> 아이디 : {{update.id}}</font></tb><br>
+                    <hr>
+                    <tb><b> 프로필 이미지 변경 : <b/></tb><br>
+                    <input type="file" name="file"><br>
+                    <br>
+                    <tb><b>현재 비밀번호 : {{update.pw}}</b></tb><br>
+                    비밀번호 : <input type="text" name="pw"><br>
+                    <tb><b>현재 이름 : {{update.name}}</b></tb><br>
+                    이름 : <input type="text" name="name"><br>
+                    <tb><b>생일 :{{update.birth}}</b></tb><br>
+                    생일 : <input type="text" name="birth"><br>
+                    <tb><b>현재 메일 : {{update.mail}}</b></tb><br>    
+                    메일 : <input type="text" name="mail"><br>
+                    </tr>
+                    <br>
+                    <button id='updateBtn' type="submit">수정완료</button>
+                    <button id='updateBtn' type="button" onclick="location.href='/user/profile/'">취소</button>
+                </form>
+            </table>
+
+            <hr>
+            {% comment %} <div style="text-align: center;">
+            <!-- <div style="margin-left: 10px;"> -->
+                
+            </div> {% endcomment %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock  %}
+
+
+
+
+{% comment %} {% extends 'boardapp/base.html' %}
+
+{% block title %}Index page{% endblock %}
+
+{% block content %}
+<style>
+	.card {
+		padding: 10px;		
+	}
+
+	.card h3 {
+		font-family: none;
+	} 
+</style>
 <h2>프로필 수정</h2>
 <form action="{% url 'userapp:update' %}" method="post"
 enctype="multipart/form-data">
@@ -33,4 +108,4 @@ enctype="multipart/form-data">
 </form>
 
 <button id='updateBtn' type="button" onclick="location.href='/user/profile/'">취소</button>
-{% endblock  %}
+{% endblock  %} {% endcomment %}

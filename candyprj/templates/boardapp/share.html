@@ -4,14 +4,31 @@
     <table class="table">
         <thead  class="thead-inverse">
             <tr>
-                <th>index</th>
+                <th>작성자</th>
                 <th>제목</th>
                 <th>조회수</th>
-                <th>작성자</th>
                 <th>댓글수</th>
                 <th>작성일자</th>
             </tr>
         </thead>
+
+        <tbody>
+            {% for topic in topics %}
+            <tr>
+                <td>{{topic.writter}}</td>
+                <td>{{topic.subject }}</td>
+                <td>0</td>
+                <td>0</td>
+                <td>{{topic.last_updated}}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+      
     </table>
+
+    <div class="mb-4">
+        <a href='/board/new/' class="btn btn-info"><b>글 작성</b></a>
+    </div> 
 
 {% endblock %}

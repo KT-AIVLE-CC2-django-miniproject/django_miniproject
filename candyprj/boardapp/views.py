@@ -1,4 +1,3 @@
-from email.policy import default
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.utils import timezone
@@ -7,7 +6,7 @@ from django.core.paginator import Paginator
 from matplotlib.pyplot import title
 from userapp.models import User
 
-from .models import Board
+from .models import Board, Topic
 
 # from userapp.views import ss
 
@@ -118,30 +117,29 @@ def share(request):
     #share html을 렌더링하고 topics 개체 반환
 
 def new_topic(request):
-
     topics = Topic.objects.all()
-         
-        # user = User.objects.first()
-    uid = request.session['id']
-    uid = User.objects.get(id = uid)
-    user = Topic(writter = uid) 
-        # user.save()
-    # topics = Topic.objects.create(
-    #     subject=subject,
-    #     message=message,
-    #     id=user
-    #     )
-    topics = Topic(writter = user, subject =request.POST['subject'], message =request.POST['message']) 
-    topics.save()
+    if request.method == 'POST':
+        message =  request.POST['message']
+        subject = request.POST['subject']     
+        
+        uid = request.session['id']
+        uid = User.objects.get(id = uid)
+        
+        # topics = Topic.objects.create(
+        #     subject=subject,
+        #     message=message,
+        #     writter=user
+        #     )
+        topics = Topic(writter = uid, subject =request.POST['subject'], message =request.POST['message'],) 
+        topics.save()
 
-    # posts = Replys.objects.create(
-    #     created_at = timezone.now(),
-    #     message=message,
-    #     created_by=user,
-    #     updated_by=user,
-    #     updated_at = timezone.now()
-    # )
+        posts = Replys.objects.create(
+            created_at = timezone.now(),
+            message = message,
+            created_by=uid,
+            updated_by=uid,
+            updated_at = timezone.now())
 
-        # return redirect('boardapp:share')
-  
-    return render(request,'boardapp/new_topic.html',{'topics':topics})
+        return redirect('boardapp:share')
+    
+    return render(request,'boardapp/new_topic.html',{'topics': topics})
