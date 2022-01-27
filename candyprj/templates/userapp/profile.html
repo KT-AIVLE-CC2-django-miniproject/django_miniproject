@@ -56,7 +56,9 @@
             <hr>
             <div style="text-align: center;">
             <!-- <div style="margin-left: 10px;"> -->
+                {%if request.session.id == profile.id%}
                 <a href="{% url 'userapp:update' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-edit"></i>&nbsp;내정보수정</a>&nbsp;&middot;&nbsp;
+                {%endif%}
                 <a href="{% url 'boardapp:home' %}" style="color:#d14040f2; font-size:15px;"><i class="fas fa-user-slash"></i>&nbsp;home</a> <br>
             </div>
       </div>

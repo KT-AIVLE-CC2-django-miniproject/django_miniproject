@@ -109,3 +109,7 @@ def logout(request):
 #     profile = User.objects.get(id = id)
 #     return render(request, 'userapp/profile.html',{'profile':profile})
 
+def userinfo(request, id):
+    user = User.objects.get(id=id)
+
+    return render(request, 'userapp/profile.html',{'profile':user})

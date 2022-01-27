@@ -36,7 +36,7 @@ def index(request): #게시글 목록
     return render(request, 'boardapp/index.html', {'title':'Board List', 'board_list': board_list, 'board':board})
 
 def detail(request, postNum): #게시글 제목 선택시 상세 페이지로 이동
-    board = Board.objects.get(id=postNum)
+    board = Board.objects.get(postNum=postNum)
     return render(request, 'boardapp/detail.html', {'boardapp': board})
 
 def write(request): #게시글 목록에서 글쓰기 버튼 클릭 시 쓰기 페이지로 이동
@@ -53,30 +53,37 @@ def write_board(request): #쓰기 페이지에서 글 등록시 submit 처리
     return HttpResponseRedirect(reverse('boardapp:home'))
 
 def create_reply(request, postNum): # 상세 페이지에서 댓글 동록시 submit 처리
+    uid = request.session['id']
+    uid = User.objects.get(id=uid)
+
     b = Board.objects.get(postNum = postNum)
-    b.reply_set.create(comment=request.POST['comment'], rep_date=timezone.now())
+    b.reply_set.create(id = uid, comment=request.POST['comment'], rep_date=timezone.now())
     return HttpResponseRedirect(reverse('boardapp:detail', args=(postNum,)))  
 
 def main(request):
     return render(request,'boardapp/main.html')
 
-
-def update(request, postNum):
-    b = Board.objects.get(id= postNum)
+def update(request, board_id):
+    b = Board.objects.get(postNum= board_id)
+    temp = Board.objects.get(postNum= board_id)
     if request.method == "POST":
         b.title=request.POST['title']
+        if b.title == "":
+            b.title = temp.title
         b.content=request.POST['detail']
+        if b.content == "":
+            b.content = temp.content
         b.pub_date=timezone.now()
         b.save()
-        return HttpResponseRedirect(reverse('boardapp:detail',args=(postNum,)))
+        return HttpResponseRedirect(reverse('boardapp:detail',args=(board_id,)))
     else:
         b=Board
-        return render(request, 'board/update.html', {'board':b})
+        return render(request, 'boardapp/update.html', {'boardapp':b})
 
-def delete(request, postNum):
-    b = Board.objects.get(id=postNum)
+def delete(request, board_id):
+    b = Board.objects.get(postNum=board_id)
     b.delete()
-    return redirect('board:home')
+    return redirect('boardapp:home')
 
 def search(request):
     search = request.GET.get('search')
