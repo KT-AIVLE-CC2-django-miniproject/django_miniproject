@@ -7,16 +7,16 @@ class Board(models.Model):
     postNum : 게시글번호(PK)
     title : 제목
     content : 내용
-    id: 작성자 (FK)
-    pub_date: 배포일
-    recuritment = 모집중 or 모집완료
+    id : 작성자 (FK)
+    pub_date : 배포일
+    imgfile : 이미지파일
     '''
     postNum = models.AutoField(primary_key=True)
     id = models.ForeignKey("userapp.User", on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.CharField(max_length= 1000)
     pub_date = models.DateTimeField()
-
+    imgfile = models.ImageField(null=True, upload_to="", blank=True)
     def __str__(self):
         return self.title
         

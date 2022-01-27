@@ -16,8 +16,14 @@ from .models import Board
 #     return render(request, 'boardapp/index.html', {'title':'data'})
 
 def home(request):
-    board = Board.objects.all().order_by('-postNum')[:5]
-    return render(request, 'boardapp/home.html', {'title':'home', 'board':board})
+    all_boards = Board.objects.all().order_by('-pub_date')
+    paginator = Paginator(all_boards, 10)
+    page = int(request.GET.get('page',1))
+    board_list = paginator.get_page(page)
+
+    return render(request, 'boardapp/home.html', {'board': board_list})
+
+
 
 def board(request):
     return render(request, 'boardapp/board.html', {'title':'board'})  
@@ -50,7 +56,9 @@ def write_board(request): #쓰기 페이지에서 글 등록시 submit 처리
 
     b = Board(id = uid,title=request.POST['title'], content=request.POST['detail'], 
     pub_date=timezone.now()) #recuritment --> 필요없다. 조회할때만 모집중인지 아닌지 버튼으로 ex 좋아요, 싫어요
-    b.save()
+    if b.title != "": #제목이 입력된 경우에만 저장
+        b.save()
+
     return HttpResponseRedirect(reverse('boardapp:home'))
 
 def create_reply(request, postNum): # 상세 페이지에서 댓글 동록시 submit 처리
