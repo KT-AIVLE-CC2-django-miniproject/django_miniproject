@@ -1,111 +1,42 @@
+{% extends 'boardapp/base.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        div{
-            margin:10px;
-        }
-    </style>
-
-    <div class = 'logo' style = "text-align:center;">
-        <h1>Candy<h1>
-    </div> 
-    <div class='user' style = "text-align:right">
-        {% if request.session.id %}
-            <a href='../../user/profile'> {{request.session.name}}님</a> 안녕하세요
-            <button id = 'logoutBtn' onclick="location.href='/user/logout'">로그아웃</button>
-            <button id='profileBtn' type="button" onclick="location.href='/user/profile/'">마이페이지</button>
-            <button id='hpgBtn' type="button" onclick="location.href='/board/home/'">홈페이지</button>
-            <button id='write_BoardBtn' type="button" onclick="location.href='/board/write/'">게시글 작성</button>
-        
-        {% else %}
-            {% comment %} <button id='loginBtn' type="button" onclick="location.href='/user/login/'">로그인</button> {% endcomment %}
-            {% comment %} <button id='signupBtn' type="button" onclick="location.href='/user/signup/'">회원가입</button> {% endcomment %}
-            <button id='hpgBtn' type="button" onclick="location.href='/board/home/'">홈페이지</button>
-        {%endif%}
-    </div>
+    <meta charset="UTF-8">
+    <title>Candy</title>
 </head>
-
 <body>
-    <div class = 'category' style="float:left; background-color:#bcbcbc">
-
-    <div class='search'>
-        <input type='text' placeholder='Search'>
-        <button> 검색 </button>
-    </div>
-    
-    <ul>
-        <li>
-            <a>스터디 구인</a>
-        </li>
-        <li>
-            <a>면접 공유</a>
-            <ul>
-                <li>
-                    <a>IT 설계</a>
-                    <ul>
-                        <li><a>KT</a></li>
-                        <li><a>Samsung</a></li>
-                        <li><a>Naver</a></li>
-                    </ul>
-                </li>
-            </ul>   
-        </li>   
-    </ul> 
-    </div>
-
-    <div class = 'board'  style="float:left">
-        <div class='study'  style="float:left">
-        <table border='1'>
-            <caption style = 'text-align:left'>게시판</caption>
-            <th>글번호</th>
-            <th>글제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <tr><!-- 첫번째 줄 시작 -->
-                <td>1</td>
-                <td>
-
-                    <a>ㄱㄱㄱㄱ</a>
-
-                </td>
-                <td>가</td>
-                <td>2021.01.22</td>
-            </tr><!-- 첫번째 줄 끝 -->
-            <tr><!-- 첫번째 줄 시작 -->
-                <td>2</td>
-                <td>ㄴㄴㄴㄴ</td>
-                <td>나</td>
-                <td>2021.01.23</td>
-            </tr><!-- 첫번째 줄 끝 -->
-            </table>
+    <div class="container pt-3">
+        <div class="row">
+            <!-- left content -->
+            
+            <div class = "col-md-6">
+                <div class="card" style="width: 22rem;">
+                    <img src="/static/image/ktlogo.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">면접 스터디 구인</h5>
+                      <p class="card-text">최고의 효율로 취업뽀개자</p>
+                      <a href="/board/home" class="btn btn-outline-info">스터디 모집 바로가기</a>
+        
+                    </div>
+                </div>
+            </div>
+            <!-- right content -->
+            <div class = "col-md-6">
+                <div class="card" style="width: 22rem;">
+                    <img src="/static/image/2.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">기업별 면접 공유</h5>
+                      <p class="card-text">다양한 합격 사례를 통해 취뽀!</p>
+                      <a href="#" class="btn btn-outline-info">기업별 면접 공유</a>
+                    </div>
+                </div>
+            </div>
+            
         </div>
-
-        <div class='interview'  style="float:right">
-            <table border='1'>
-                <caption style = 'text-align:left'>게시판</caption>
-                <th>글번호</th>
-                <th>글제목</th>
-                <th>작성자</th>
-                <th>작성일</th>
-                <tr><!-- 첫번째 줄 시작 -->
-                    <td>1</td>
-                    <td>
-    
-                        <a>ㄱㄱㄱㄱ</a>
-    
-                    </td>
-                    <td>가</td>
-                    <td>2021.01.22</td>
-                </tr><!-- 첫번째 줄 끝 -->
-                <tr><!-- 첫번째 줄 시작 -->
-                    <td>2</td>
-                    <td>ㄴㄴㄴㄴ</td>
-                    <td>나</td>
-                    <td>2021.01.23</td>
-                </tr><!-- 첫번째 줄 끝 -->
-                </table>
-        </div>
-    </div>
+    </div> <!-- footer -->
 </body>
 </html>
+
+{% endblock  %}
