@@ -71,7 +71,6 @@
 					<td>
 						<a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:detail' item.postNum %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
 							{{item.title}}
-							{% comment %} 디테일이 안먹히는중  {% endcomment %}
 						</a>
 					</td>
 					<td>
@@ -93,6 +92,9 @@
     }
     function alertAccess() {
         alert("로그인 후 이용 가능합니다.")
+    }
+	function alertAccess1() {
+        alert("작성자가 아닙니다!!")
     }
 
     document.getElementById("searchBtn").addEventListener("click", () => {
