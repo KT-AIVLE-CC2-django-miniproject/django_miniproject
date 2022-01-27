@@ -37,11 +37,7 @@ def update(request):
             update.file = new.file
         else :
             update.file = update.file
-        # if update.flie =='':
-        #     update.file = new.file
-        # else :
-        #     update.file = update.file
-
+        
         update.pw = request.POST.get('pw')
         if update.pw =='':
             update.pw = new.pw
