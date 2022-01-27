@@ -47,7 +47,7 @@ class Topic(models.Model):
 
 class Replys(models.Model):
     message = models.TextField(max_length=5000)
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now=True)
     created_by= models.ForeignKey("userapp.User", null=True, related_name='posts',on_delete=models.CASCADE)
     updated_at = models.DateField(null = True)
     updated_by=  models.ForeignKey("userapp.User",null=True,related_name='+',on_delete=models.CASCADE)
