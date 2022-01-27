@@ -16,7 +16,13 @@
             {% for topic in topics %}
             <tr>
                 <td>{{topic.writter}}</td>
+                {% comment %} <td>
+                    <a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:detail1' topic.id %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
+                        {{topic.subject}}
+                    </a>
+                </td> {% endcomment %}
                 <td>{{topic.subject }}</td>
+                
                 <td>0</td>
                 <td>0</td>
                 <td>{{topic.last_updated}}</td>

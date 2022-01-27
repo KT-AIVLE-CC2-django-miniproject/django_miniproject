@@ -133,13 +133,86 @@ def new_topic(request):
         topics = Topic(writter = uid, subject =request.POST['subject'], message =request.POST['message'],) 
         topics.save()
 
-        posts = Replys.objects.create(
-            created_at = timezone.now(),
-            message = message,
-            created_by=uid,
-            updated_by=uid,
-            updated_at = timezone.now())
+        # posts = Replys.objects.create(
+        #     created_at = timezone.now(),
+        #     message = message,
+        #     created_by=uid,
+        #     updated_by=uid,
+        #     updated_at = timezone.now())
 
         return redirect('boardapp:share')
     
     return render(request,'boardapp/new_topic.html',{'topics': topics})
+
+
+def detail1(request, id): #게시글 제목 선택시 상세 페이지로 이동
+    board1 = Topic.objects.get(id=id)
+    return render(request, 'boardapp/detail1.html', {'boardapp1': board1})
+
+# def detail(request, postNum): #게시글 제목 선택시 상세 페이지로 이동
+#     board = Board.objects.get(postNum=postNum)
+#     return render(request, 'boardapp/detail.html', {'boardapp': board})    
+
+def create1_reply(request, id): # 상세 페이지에서 댓글 동록시 submit 처리
+    uid = request.session['id']
+    uid = User.objects.get(id=uid)
+
+    b = Topic.objects.get(id = id)
+    b.reply1_set.create(writter = uid, message=request.POST['message'], last_updated=timezone.now())
+    return HttpResponseRedirect(reverse('boardapp:detail1', args=(id,)))  
+
+# def create_reply(request, postNum): # 상세 페이지에서 댓글 동록시 submit 처리
+#     uid = request.session['id']
+#     uid = User.objects.get(id=uid)
+
+#     b = Board.objects.get(postNum = postNum)
+#     b.reply_set.create(id = uid, comment=request.POST['comment'], rep_date=timezone.now())
+#     return HttpResponseRedirect(reverse('boardapp:detail', args=(postNum,)))  
+
+
+def update1(request, board_id1):
+    b = Topic.objects.get(id= board_id1)
+    temp = Topic.objects.get(id= board_id1)
+    if request.method == "POST":
+        b.subject=request.POST['subject']
+        if b.subject == "":
+            b.subject = temp.subject
+        b.message=request.POST['message']
+        if b.message == "":
+            b.message = temp.message
+        b.last_updated=timezone.now()
+        b.save()
+        return HttpResponseRedirect(reverse('boardapp:detail1',args=(board_id1,)))
+    else:
+        b=Topic
+        return render(request, 'boardapp/update1.html', {'boardapp1':b})
+
+# def update(request, board_id):
+#     b = Board.objects.get(postNum= board_id)
+#     temp = Board.objects.get(postNum= board_id)
+#     if request.method == "POST":
+#         b.title=request.POST['title']
+#         if b.title == "":
+#             b.title = temp.title
+#         b.content=request.POST['detail']
+#         if b.content == "":
+#             b.content = temp.content
+#         b.pub_date=timezone.now()
+#         b.save()
+#         return HttpResponseRedirect(reverse('boardapp:detail',args=(board_id,)))
+#     else:
+#         b=Board
+#         return render(request, 'boardapp/update.html', {'boardapp':b})
+
+
+def delete1(request, board_id1):
+    b = Topic.objects.get(id=board_id1)
+    b.delete()
+    return redirect('boardapp:share')
+
+# def delete(request, board_id):
+#     b = Board.objects.get(postNum=board_id)
+#     b.delete()
+#     return redirect('boardapp:home')
+
+
