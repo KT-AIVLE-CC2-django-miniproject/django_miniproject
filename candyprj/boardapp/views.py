@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from matplotlib.pyplot import title
 from userapp.models import User
 
-from .models import Board
+from .models import Board, Topic
 
 # from userapp.views import ss
 
