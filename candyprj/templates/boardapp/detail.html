@@ -50,7 +50,7 @@
 
 		<div class="reply_content">
 			{% for rep in boardapp.reply_set.all %}
-				<span class="reply">{{ rep.comment }} [{{ rep.rep_date|date:'Y-m-d H:i'}}]</span><br>
+				<span class="reply">{{ rep.comment }} [{{ rep.rep_date|date:'Y-m-d H:i'}}] -{{rep.id}}</span><br>
 			{% endfor %}
 		</div>
     
