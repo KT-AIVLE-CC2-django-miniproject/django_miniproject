@@ -4,7 +4,7 @@
 
 
 {% block boardhead %}
-    <form method ="post">
+    <form method ="post" action="{% url 'boardapp:new_write' %}" entype = "multipart/form-data">
         {% csrf_token %}
        
         <!-- writting title -->
@@ -17,8 +17,9 @@
             <label for="id_message">내용</label>
             <textarea class="form-control" id="id_message" name="message" rows="5"></textarea>
         </div>
+        <input type="file" name="file" accept="">
+	    <br>
         <button type="submit" class="btn btn-success">게시</button>
-
-
 </form>
+
 {% endblock %}

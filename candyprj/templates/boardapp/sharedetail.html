@@ -12,6 +12,12 @@
 
 <div class="col-lg-8 align-self-baseline">
     <p class="text-white-75 mb-5">{{topics.message}}</p>
+    {% if blog.images %}
+                <img src="{{ topics.file.url }}" width="500" height="500">
+    {% endif %}
+    <br>
+    {% comment %} <a href="{% url 'boardapp:update' boardapp.postNum %}">수정</a>
+	<a href="{% url 'boardapp:delete' boardapp.postNum %}">삭제</a> {% endcomment %}
     <a class="btn btn-primary btn-xl" href='/board/new'>글 작성하기</a>
     {% comment %} <a class="btn btn-primary btn-xl" href='/board/replys'>댓글 쓰기</a> {% endcomment %}
     

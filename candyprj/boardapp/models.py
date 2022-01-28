@@ -1,3 +1,4 @@
+from bcrypt import os
 from django.db import models
 from sqlalchemy import ForeignKey
 from userapp.models import User
@@ -44,8 +45,7 @@ class Topic(models.Model):
     subject = models.CharField(max_length=255) #title
     last_updated =  models.DateField(auto_now_add=True, null=True)
     writter = models.ForeignKey("userapp.User", related_name='topics',on_delete=models.CASCADE, null=True)
-    def __str__(self):
-        return self.writter    
+    file = models.FileField(upload_to='%Y/%m/%d') 
 
 
 class Replys(models.Model):
