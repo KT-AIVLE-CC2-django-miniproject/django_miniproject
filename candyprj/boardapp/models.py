@@ -1,3 +1,4 @@
+from bcrypt import os
 from django.db import models
 from sqlalchemy import ForeignKey
 from userapp.models import User
@@ -16,7 +17,6 @@ class Board(models.Model):
     title = models.CharField(max_length=100)
     content = models.CharField(max_length= 1000)
     pub_date = models.DateTimeField()
-    imgfile = models.ImageField(null=True, upload_to="", blank=True)
     def __str__(self):
         return self.title
         
@@ -44,8 +44,7 @@ class Topic(models.Model):
     subject = models.CharField(max_length=255) #title
     last_updated =  models.DateField(auto_now_add=True, null=True)
     writter = models.ForeignKey("userapp.User", related_name='topics',on_delete=models.CASCADE, null=True)
-    def __str__(self):
-        return self.writter    
+    file = models.FileField(upload_to='%Y/%m/%d') 
 
 class Replys(models.Model):
     message = models.TextField(max_length=5000)

@@ -131,34 +131,41 @@ def sharedetail(request, topicid):
     except KeyError:
         return redirect('boardapp:share')
     
+def new_write(request): #게시글 목록에서 글쓰기 버튼 클릭 시 쓰기 페이지로 이동
+    uid = request.session['id']
+    uid = User.objects.get(id = uid)
 
+
+    # b = Board(id = uid,title=request.POST['title'], content=request.POST['detail'], 
+    topics = Topic(writter = uid, subject =request.POST['subject'], message =request.POST['message'], file = request.FILES.get('file')) 
+    if topics.subject !="":
+        topics.save()
+
+    return HttpResponseRedirect(reverse('boardapp:share'))
 def new_topic(request):
-    topics = Topic.objects.all()
-    if request.method == 'POST':
-        message =  request.POST['message']
-        subject = request.POST['subject']     
-        
-        uid = request.session['id']
-        uid = User.objects.get(id = uid)
+    # topics = Topic.objects.all()
+    # if request.method == 'POST':      
+    #     uid = request.session['id']
+    #     uid = User.objects.get(id = uid)
         
         # topics = Topic.objects.create(
         #     subject=subject,
         #     message=message,
         #     writter=user
         #     )
-        topics = Topic(writter = uid, subject =request.POST['subject'], message =request.POST['message'],) 
-        topics.save()
+        # topics = Topic(writter = uid, subject =request.POST['subject'], message =request.POST['message'], file = request.FILES['file']) 
+        # if topics.subject !="":
+        #     topics.save()
 
-        posts = Replys.objects.create(
-            created_at = timezone.now(),
-            message = message,
-            created_by=uid,
-            updated_by=uid,
-            updated_at = timezone.now())
+        # posts = Replys.objects.create(
+        #     created_at = timezone.now(),
+        #     message = message,
+        #     created_by=uid,
+        #     updated_by=uid,
+        #     updated_at = timezone.now())
 
-        return redirect('boardapp:share')
     
-    return render(request,'boardapp/new_topic.html',{'topics': topics})
+    return render(request, 'boardapp/new_topic.html')
 
 
 # def detail1(request, id): #게시글 제목 선택시 상세 페이지로 이동

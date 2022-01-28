@@ -3,6 +3,13 @@ from . import views
 
 app_name = 'boardapp'
 urlpatterns = [
+
+    path('main/', views.main, name = 'main'),
+    path('board/', views.board, name ='board'),
+    path('home/', views.home, name='home'),
+    path('search/', views.search),
+
+    #스터디 모집 게시판
     path('', views.index, name='index'),
     path('<int:postNum>/', views.detail, name='detail'),
     path('write/', views.write, name='write'),
@@ -11,17 +18,16 @@ urlpatterns = [
     path('<int:board_id>/update/', views.update, name ='update'),
     path('<int:board_id>/delete/', views.delete, name ='delete'),
 
+    #공유 게시판
     path('sharedetail/<int:topicid>/', views.sharedetail, name='sharedetail'),
     # path('<int:board_id>/update1/', views.update1, name ='update1'),
     # path('<int:board_id>/delete1/', views.delete1, name ='delete1'),
     # path('<int:writter>/create1_reply/', views.create1_reply, name='create1_reply'),
     # path('<int:id>/', views.detail1, name='detail1'),
-    
-    path('main/', views.main, name = 'main'),
-    path('board/', views.board, name ='board'),
-    path('home/', views.home, name='home'),
-    path('search/', views.search),
-
     path('share/',views.share, name = 'share'),
-    path('new/' , views.new_topic, name='new_topoc'), #게시글 작성 페이지 url 추가 board/new/ ?
+    path('new/' , views.new_topic, name='new_topic'), #게시글 작성 페이지 url 추가 board/new/ ?
+    path('new/new_write/' , views.new_write, name='new_write'), 
+    
+    # path('download/<id>', views.download, name = 'download'),
+    # path('filedelete/<id>', views.file_delete, name ='file_delete'),
 ]
