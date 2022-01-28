@@ -21,7 +21,6 @@ urlpatterns = [
     path('main/', views.main, name = 'main'),
     path('board/', views.board, name ='board'),
     path('home/', views.home, name='home'),
-    path('search/', views.search),
 
     path('share/',views.share, name = 'share'),
     path('new/' , views.new_topic, name='new_topic'), #게시글 작성 페이지 url 추가 board/new/ ?
