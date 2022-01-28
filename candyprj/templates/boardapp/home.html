@@ -34,6 +34,7 @@
 						<a style="color:#000000" {%if request.session.id %} href="{% url 'boardapp:detail' item.postNum %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
 							{{item.title}}
 						</a>
+                        <span> [{{ item.reply_set.count }}] </span>
 					</td>
 					<td>
 						<a style="color:#000000" {%if request.session.id %} href="{% url 'userapp:userinfo' item.id_id %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%} >
@@ -83,5 +84,18 @@
         </li>
         {% endif %}
     </ul>
-    <a href="{% url 'boardapp:write' %}" class="btn btn-primary">질문 등록하기</a>
+    <a class="btn btn-primary" {%if request.session.id %} href="{% url 'boardapp:write' %}" {%else%} href = '/user/login/' onclick="alertAccess()" {%endif%}>
+        질문 등록하기
+    </a>
+
+
+
+    <script>
+        function alertAccess() {
+            alert("로그인 후 이용 가능합니다.")
+        }
+        // document.getElementById("searchBtn").addEventListener("click", () => {
+        //     document.getElementById("searchText").setAttribute("value",document.getElementById("searchText").value);
+        // });
+    </script>
 {% endblock  %}

@@ -127,7 +127,7 @@ def sharedetail(request, topicid):
             'topics' : topics,
             'session' : session,
         }
-        return render(request, 'sharedetail.html', context)
+        return render(request, 'boardapp/sharedetail.html', context)
     except KeyError:
         return redirect('boardapp:share')
     
