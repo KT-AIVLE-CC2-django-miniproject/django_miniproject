@@ -15,13 +15,16 @@ from .models import Board, Topic, Replys
 #     return render(request, 'boardapp/index.html', {'title':'data'})
 
 def home(request):
-    all_boards = Board.objects.order_by('-pub_date')
+    # all_boards = Board.objects.order_by('-pub_date')
+    kw = request.GET.get('kw', '')  # 검색어
+    all_boards = Board.objects.filter(title__contains=kw).order_by('-postNum')
     paginator = Paginator(all_boards, 10)
-    page = int(request.GET.get('page',1))
+    page = request.GET.get('page','1')
     board_list = paginator.get_page(page)
     context={'all_boards':board_list}
 
-    return render(request, 'boardapp/home.html', {'board': board_list})
+
+    return render(request, 'boardapp/home.html', {'board': board_list, 'kw':kw})
 
 
 
@@ -94,17 +97,6 @@ def delete(request, board_id):
     b.delete()
     return redirect('boardapp:home')
 
-def search(request):
-    search = request.GET.get('search')
-    if search=='':
-        searchBoard = Board.objects.all().order_by('-postNum')[:5]
-    else:
-        try:
-            searchBoard = Board.objects.filter(title__contains=search).order_by('-postNum')
-        except:
-            searchBoard = Board.objects.all().order_by('-postNum')[:5]
-
-    return render(request, 'boardapp/home.html', {'board':searchBoard})
 
 
 ######################################################################기업별 면접공유 함수

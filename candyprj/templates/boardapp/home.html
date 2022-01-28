@@ -4,9 +4,9 @@
 
 {% block content %}
 <div class='search' style="float:right; margin:10px;">
-	<input id='searchText' type='text' placeholder='Search'>
-	<button id='searchBtn' type='submit'> 검색 </button>
-</div>
+    <input id='kw' type='text' placeholder='Search' value="{{kw}}">
+    <button type = 'submit' id='btn_search'> 검색 </button>
+</div> 
 
 <div class="container my-3">
     <table class="table">
@@ -51,7 +51,7 @@
         <!-- 이전페이지 -->
         {% if board.has_previous %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ board.previous_page_number }}">이전</a>
+            <a class="page-link" href="?kw={{kw}}&page={{ board.previous_page_number }}">이전</a>
         </li>
         {% else %}
         <li class="page-item disabled">
@@ -64,11 +64,14 @@
         {% if page_number >= board.number|add:-5 and page_number <= board.number|add:5 %}    
             {% if page_number == board.number %}
             <li class="page-item active" aria-current="page">
-                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                <a id = 'pageBtn' class="page-link" href="?kw={{kw}}&page={{ page_number }}">{{ page_number }}</a>
+                {% comment %} <a id = 'pageBtn' class="page-link" onclick=>{{ page_number }}</a> {% endcomment %}
+                <a id='page' style = 'visibility: hidden'>{{page_number}}</a>
             </li>
             {% else %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                <a id = 'pageBtn'class="page-link" href="?kw={{kw}}&page={{ page_number }}">{{ page_number }}</a>
+                {% comment %} <a id = 'pageBtn'class="page-link">{{ page_number }}</a> {% endcomment %}
             </li>
             {% endif %}
         {% endif %}
@@ -76,7 +79,7 @@
         <!-- 다음페이지 -->
         {% if board.has_next %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ board.next_page_number }}">다음</a>
+            <a class="page-link" href="?kw={{kw}}&page={{ board.next_page_number }}">다음</a>
         </li>
         {% else %}
         <li class="page-item disabled">
@@ -94,8 +97,16 @@
         function alertAccess() {
             alert("로그인 후 이용 가능합니다.")
         }
-        // document.getElementById("searchBtn").addEventListener("click", () => {
-        //     document.getElementById("searchText").setAttribute("value",document.getElementById("searchText").value);
-        // });
+        document.getElementById("btn_search").addEventListener("click", () => {
+
+
+            key = document.getElementById('kw').value
+            page = document.getElementById('page').text
+            
+            location.href = '?kw=' +  key + '&page=1'
+            
+
+            
+          });
     </script>
 {% endblock  %}
