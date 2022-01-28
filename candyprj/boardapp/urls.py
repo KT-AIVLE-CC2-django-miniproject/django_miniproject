@@ -7,7 +7,7 @@ urlpatterns = [
     path('main/', views.main, name = 'main'),
     path('board/', views.board, name ='board'),
     path('home/', views.home, name='home'),
-    path('search/', views.search),
+    # path('search/', views.search),
 
     #스터디 모집 게시판
     path('', views.index, name='index'),
