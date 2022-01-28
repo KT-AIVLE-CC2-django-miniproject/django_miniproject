@@ -35,7 +35,8 @@ class Reply(models.Model):
     rep_date = models.DateTimeField()
 
     def __str__(self):
-        return self.comment
+        return self.comment, self.id
+
 
 #########################################################기업별 면접 공유 게시판
 
