@@ -16,7 +16,7 @@ class Board(models.Model):
     title = models.CharField(max_length=100)
     content = models.CharField(max_length= 1000)
     pub_date = models.DateTimeField()
-    imgfile = models.ImageField(null=True, upload_to="", blank=True)
+    # imgfile = models.ImageField(null=True, upload_to="", blank=True)
     def __str__(self):
         return self.title
         
