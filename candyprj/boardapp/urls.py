@@ -10,6 +10,12 @@ urlpatterns = [
     path('<int:postNum>/create_reply/', views.create_reply, name='create_reply'),
     path('<int:board_id>/update/', views.update, name ='update'),
     path('<int:board_id>/delete/', views.delete, name ='delete'),
+
+    path('sharedetail/<int:topicid>/', views.sharedetail, name='sharedetail'),
+    # path('<int:board_id>/update1/', views.update1, name ='update1'),
+    # path('<int:board_id>/delete1/', views.delete1, name ='delete1'),
+    # path('<int:writter>/create1_reply/', views.create1_reply, name='create1_reply'),
+    # path('<int:id>/', views.detail1, name='detail1'),
     
     path('main/', views.main, name = 'main'),
     path('board/', views.board, name ='board'),
