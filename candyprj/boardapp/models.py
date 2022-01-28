@@ -47,9 +47,27 @@ class Topic(models.Model):
     def __str__(self):
         return self.writter    
 
+
 class Replys(models.Model):
+    '''
+    message 댓글내용
+    created_at -댓글 작성일시
+    created_by 댓글 쓴사람
+    updated at 댓글 수정일시
+    updated by 댓글 수정한사람
+    
+    '''
     message = models.TextField(max_length=5000)
     created_at = models.DateTimeField(auto_now=True)
     created_by= models.ForeignKey("userapp.User", null=True, related_name='posts',on_delete=models.CASCADE)
     updated_at = models.DateField(null = True)
     updated_by=  models.ForeignKey("userapp.User",null=True,related_name='+',on_delete=models.CASCADE)
+    # topic = models.ForeingKey('Topic')
+
+    # topic =  Otpic.objexts.get(id=topicid)
+    # replies  = topic.repliy_set.all()
+    # render (template, { topic, replies})
+
+    # {% for r in replies %}
+    #     {{r.body}}
+    # {%endfor %}
