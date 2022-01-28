@@ -7,8 +7,6 @@
             <tr>
                 <th>작성자</th>
                 <th>제목</th>
-                {% comment %} <th>조회수</th> {% endcomment %}
-                {% comment %} <th>댓글수</th> {% endcomment %}
                 <th>작성일자</th>
             </tr>
         </thead>
@@ -23,10 +21,6 @@
                         {{topic.subject}}
                     </a>
                 </td>  {% endcomment %}
-
-                <td>{{topic.subject }}</td>
-                <td>0</td>
-                <td>0</td>
                 <td>{{topic.last_updated}}</td>
             </tr>
             {% endfor %}
