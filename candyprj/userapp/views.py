@@ -122,3 +122,4 @@ def userinfo(request, id):
     user = User.objects.get(id=id)
 
     return render(request, 'userapp/profile.html',{'profile':user})
+

@@ -1,6 +1,21 @@
-{% extends  'boardapp/sharebase.html' %}
+{% extends  'boardapp/sharedetailview.html' %} 
 
 {% block boardhead %}
-    <input type ="text" class ="title" name = "subject" value= "{{ topics.subject }}" readonly/>
-    <textarea class ="content" name= "message" readonly>{{topics.message}} </textarea>
+<header class="masthead">
+    <div class="container px-4 px-lg-5 h-100">
+        <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+<div class="col-lg-8 align-self-end">
+    <h1 class="text-white font-weight-bold">{{ topics.subject }}</h1>
+    <hr class="divider" />
+</div>
+
+<div class="col-lg-8 align-self-baseline">
+    <p class="text-white-75 mb-5">{{topics.message}}</p>
+    <a class="btn btn-primary btn-xl" href='/board/new'>글 작성하기</a>
+</div>
+
+ {% comment %} <div class="col-lg-8 align-self-baseline">
+    <p class="text-white-75 mb-5"><input type ="text" class ="title" name = "topics.subject" value= "{{ topics.subject }}" readonly/></p>
+    <textarea class ="content" name= "topics.message" readonly>{{topics.message}} </textarea>
+</div>  {% endcomment %}
 {% endblock %}
