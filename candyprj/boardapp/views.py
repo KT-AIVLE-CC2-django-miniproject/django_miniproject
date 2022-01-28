@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from matplotlib.pyplot import title
 from userapp.models import User
 
-from .models import Board, Topic
+from .models import Board, Topic, Replys
 
 # from userapp.views import ss
 
@@ -130,7 +130,21 @@ def sharedetail(request, topicid):
         return render(request, 'boardapp/sharedetail.html', context)
     except KeyError:
         return redirect('boardapp:share')
-    
+
+def sharedetail1(request, postid):
+    uid = request.session['id']
+    uid = User.objects.get(id = uid)
+    posts = get_object_or_404(Replys, pk=postid)
+    try:
+        uid = request.session['id']
+        session = User.objects.get(id = uid)
+        context = {
+            'posts' : posts,
+            'session' : session,
+        }
+        return render(request, 'boardapp/sharedetail1.html', context)
+    except KeyError:
+        return redirect('boardapp:sharedetail')
 
 def new_topic(request):
     topics = Topic.objects.all()
@@ -149,16 +163,56 @@ def new_topic(request):
         topics = Topic(writter = uid, subject =request.POST['subject'], message =request.POST['message'],) 
         topics.save()
 
-        posts = Replys.objects.create(
-            created_at = timezone.now(),
-            message = message,
-            created_by=uid,
-            updated_by=uid,
-            updated_at = timezone.now())
+        # posts = Replys.objects.create(
+        #     created_at = timezone.now(),
+        #     message = message,
+        #     created_by=uid,
+        #     updated_by=uid,
+        #     updated_at = timezone.now())
 
         return redirect('boardapp:share')
     
     return render(request,'boardapp/new_topic.html',{'topics': topics})
+
+def new_replys(request):
+    posts = Replys.objects.all()
+    if request.method == 'POST':
+        message = request.POST['message']
+
+        uid = request.session['id']
+        uid = User.objects.get(id = uid)
+
+        posts = Replys(created_by = uid, message =request.POST['message'],created_at = timezone.now(),updated_by=uid,
+        updated_at = timezone.now()) 
+        posts.save()
+        # posts = Replys.objects.create(
+        #     created_at = timezone.now(),
+        #     message = message,
+        #     created_by=uid,
+        #     updated_by=uid,
+        #     updated_at = timezone.now())
+
+        return redirect('boardapp:sharedetail')
+    
+    return render(request,'boardapp/new_replys.html',{'posts': posts})
+
+
+# def replys(request, postsid):
+#     uid = request.session['id']
+#     uid = User.objects.get(id = uid)
+#     posts = get_object_or_404(Replys, pk=postsid)
+#     try:
+#         uid = request.session['id']
+#         session = User.objects.get(id = uid)
+#         context = {
+#             'posts' : posts,
+#             'session' : session,
+#         }
+#         return render(request, 'boardapp/replys.html', context)
+#     except KeyError:
+#         return redirect('boardapp:share')
+
+
 
 
 # def detail1(request, id): #게시글 제목 선택시 상세 페이지로 이동

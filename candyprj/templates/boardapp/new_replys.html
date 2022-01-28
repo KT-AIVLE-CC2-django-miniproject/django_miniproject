@@ -1,0 +1,25 @@
+{% extends  'boardapp/sharebase.html' %}
+
+{% block title %} writting {% endblock %}
+
+
+{% block boardhead %}
+    <form method ="post">
+        {% csrf_token %}
+       
+        <!-- writting title -->
+        <div class="form-group">
+            <label for="id_message"> 댓글 </label>
+            <input type="text" class="form-control" id="id_message" name="message" value= "{{ posts.message }}"/>
+        </div>
+
+        {% comment %} <div class="form-group">
+            <label for="id_message">내용</label>
+            <textarea class="form-control" id="id_message" name="message" rows="5"></textarea>
+        </div> {% endcomment %}
+
+        <button type="submit" class="btn btn-success">게시</button>
+
+
+</form>
+{% endblock %}
