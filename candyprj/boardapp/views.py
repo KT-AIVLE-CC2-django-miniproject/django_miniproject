@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from matplotlib.pyplot import title
 from userapp.models import User
 
-from .models import Board, Topic
+from .models import Board, Topic, Replys
 
 # from userapp.views import ss
 
@@ -15,13 +15,16 @@ from .models import Board, Topic
 #     return render(request, 'boardapp/index.html', {'title':'data'})
 
 def home(request):
-    all_boards = Board.objects.order_by('-pub_date')
+    # all_boards = Board.objects.order_by('-pub_date')
+    kw = request.GET.get('kw', '')  # 검색어
+    all_boards = Board.objects.filter(title__contains=kw).order_by('-postNum')
     paginator = Paginator(all_boards, 10)
-    page = int(request.GET.get('page',1))
+    page = request.GET.get('page','1')
     board_list = paginator.get_page(page)
     context={'all_boards':board_list}
 
-    return render(request, 'boardapp/home.html', {'board': board_list})
+
+    return render(request, 'boardapp/home.html', {'board': board_list, 'kw':kw})
 
 
 
@@ -94,17 +97,6 @@ def delete(request, board_id):
     b.delete()
     return redirect('boardapp:home')
 
-def search(request):
-    search = request.GET.get('search')
-    if search=='':
-        searchBoard = Board.objects.all().order_by('-postNum')[:5]
-    else:
-        try:
-            searchBoard = Board.objects.filter(title__contains=search).order_by('-postNum')
-        except:
-            searchBoard = Board.objects.all().order_by('-postNum')[:5]
-
-    return render(request, 'boardapp/home.html', {'board':searchBoard})
 
 
 ######################################################################기업별 면접공유 함수
@@ -141,6 +133,21 @@ def new_write(request): #게시글 목록에서 글쓰기 버튼 클릭 시 쓰�
     if topics.subject !="":
         topics.save()
 
+def sharedetail1(request, postid):
+    uid = request.session['id']
+    uid = User.objects.get(id = uid)
+    posts = get_object_or_404(Replys, pk=postid)
+    try:
+        uid = request.session['id']
+        session = User.objects.get(id = uid)
+        context = {
+            'posts' : posts,
+            'session' : session,
+        }
+        return render(request, 'boardapp/sharedetail1.html', context)
+    except KeyError:
+        return redirect('boardapp:sharedetail')
+
     return HttpResponseRedirect(reverse('boardapp:share'))
 def new_topic(request):
     # topics = Topic.objects.all()
@@ -166,6 +173,46 @@ def new_topic(request):
 
     
     return render(request, 'boardapp/new_topic.html')
+
+def new_replys(request):
+    posts = Replys.objects.all()
+    if request.method == 'POST':
+        message = request.POST['message']
+
+        uid = request.session['id']
+        uid = User.objects.get(id = uid)
+
+        posts = Replys(created_by = uid, message =request.POST['message'],created_at = timezone.now(),updated_by=uid,
+        updated_at = timezone.now()) 
+        posts.save()
+        # posts = Replys.objects.create(
+        #     created_at = timezone.now(),
+        #     message = message,
+        #     created_by=uid,
+        #     updated_by=uid,
+        #     updated_at = timezone.now())
+
+        return redirect('boardapp:sharedetail')
+    
+    return render(request,'boardapp/new_replys.html',{'posts': posts})
+
+
+# def replys(request, postsid):
+#     uid = request.session['id']
+#     uid = User.objects.get(id = uid)
+#     posts = get_object_or_404(Replys, pk=postsid)
+#     try:
+#         uid = request.session['id']
+#         session = User.objects.get(id = uid)
+#         context = {
+#             'posts' : posts,
+#             'session' : session,
+#         }
+#         return render(request, 'boardapp/replys.html', context)
+#     except KeyError:
+#         return redirect('boardapp:share')
+
+
 
 
 # def detail1(request, id): #게시글 제목 선택시 상세 페이지로 이동
